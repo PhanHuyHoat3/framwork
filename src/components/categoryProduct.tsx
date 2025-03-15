@@ -14,7 +14,7 @@ const CategoryProduct = () => {
   }, [dispatch]);
 
   if (loading) {
-    return <p className="text-center text-gray-500 p-2">Loading...</p>;
+    return <p className="text-center text-gray-500 p-2">Loading.......</p>;
   }
 
   return (
