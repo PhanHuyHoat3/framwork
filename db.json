@@ -1,0 +1,271 @@
+        {
+        "categories": [
+        {
+        "id": 1,
+        "name": "Iphone",
+        "description": "Nhiều ưu đãi cho iPhone 15"
+        },
+        {
+        "id": 2,
+        "name": "Ipad",
+        "description": "Giảm giá cực sốc"
+        },
+        {
+        "id": 3,
+        "name": "Mac",
+        "description": "Giá tốt mỗi ngày"
+        },
+        {
+        "id": 4,
+        "name": "Watch",
+        "description": "Ưu đãi cực khủng"
+        }
+        ],
+        "products": [
+            {
+            "id": 1,
+            "name": "iPhone 14 Pro",
+            "brand": "Apple",
+            "categoryId": 1,
+            "price": 1200,
+            "stock": 10,    
+            "image": "https://bizweb.dktcdn.net/thumb/medium/100/502/883/products/230628110910-iphone-14-pro-max-1-1bad29d8-76a1-4f4a-9bc2-93eee6a2d7ea-61e61768-f143-48bd-a884-d552977c5f1c.png?v=1700193758290",
+            "description": "Màn hình Super Retina XDR 6.1 inch, chip A16 Bionic, camera 48MP.",
+            "specs": {
+                "screen": "6.1 inch OLED",
+                "processor": "A16 Bionic",
+                "camera": "48MP + 12MP + 12MP",
+                "battery": "3200mAh",
+                "storage": ["128GB", "256GB", "512GB", "1TB"],
+                "colors": [
+                {"name": "Trắng", "image": "https://bizweb.dktcdn.net/thumb/medium/100/502/883/products/230628110910-iphone-14-pro-max-1-1bad29d8-76a1-4f4a-9bc2-93eee6a2d7ea-61e61768-f143-48bd-a884-d552977c5f1c.png?v=1700193758290"},
+                {"name": "Tím", "image": "https://bizweb.dktcdn.net/100/502/883/products/230628111028-iphone-14-pro-max-1-a5e6da1a-c735-4fe2-9b0a-f3bc6dd37a1d-dfc9b037-9f53-4b32-bea3-86e50efbbbdb.png?v=1700193758290"},
+                {"name": "Đen", "image": "https://bizweb.dktcdn.net/100/502/883/products/230628111038-iphone-14-pro-max-1-e30dba1e-6ef4-4b16-a558-9ad0694aea94.png?v=1700193712213"},
+                {"name": "Vàng", "image": "https://bizweb.dktcdn.net/100/502/883/products/230628110901-iphone-14-pro-max-1-254fb9b6-ce50-4aca-9900-e1cb305de85d.png?v=1700193712213"}
+                ]
+            }
+            },
+            {
+            "id": 2,
+            "name": "iPad Pro 11 inch M2 2022",
+            "brand": "Apple",
+            "categoryId": 2,
+            "price": 1500,
+            "stock": 8,
+            "image": "https://bizweb.dktcdn.net/100/502/883/products/minhtuanmobile-ipad-pro-11-selec-78be9d03-2d95-4a49-968e-a5332eb20465-25342150-a1b4-4244-a941-9089187a0048-44aae303-9599-4883-87ec-8b4256b6f45a.png?v=1700213504547",
+            "description": "Màn hình Liquid Retina XDR 12.9 inch, chip M2, hỗ trợ Apple Pencil 2.",
+            "specs": {
+                "screen": "12.9 inch Liquid Retina XDR",
+                "processor": "Apple M2",
+                "camera": "12MP Ultra Wide + 10MP Ultra Wide",
+                "battery": "10,758mAh",
+                "storage": ["128GB", "256GB", "512GB", "1TB", "2TB"],
+                "colors": [
+                {"name": "Xám", "image": "https://bizweb.dktcdn.net/100/502/883/products/minhtuanmobile-ipad-pro-11-selec-78be9d03-2d95-4a49-968e-a5332eb20465-25342150-a1b4-4244-a941-9089187a0048-44aae303-9599-4883-87ec-8b4256b6f45a.png?v=1700213504547"},
+                {"name": "Trắng", "image": "https://bizweb.dktcdn.net/100/502/883/products/221019094952-minhtuanmobile-ipad-6ee6a2ec-837a-44f5-942f-241432fa99c5-ec422a31-aa90-45cc-8e80-dff13cc29628-9f2356ab-53d2-42bf-9020-77baa62cf981.png?v=1700213504547"}
+                ]
+            }
+            },
+            {
+                "id": 3,
+                "name": "MacBook Pro M2 13 inch 2022 8CPU 10GPU 256GB| RAM 16GB Chính hãng VN (Z16R0003V- Z16T0003V)",
+                "brand": "Apple",
+                "categoryId": 3,
+                "price": 2500,
+                "stock": 5,
+                "image": "https://bizweb.dktcdn.net/100/502/883/products/220608111844-thumb-macbook-pro-m-92a41cea-1766-4864-b183-14d77a6372e3-35b96841-a2ff-4f13-a7cd-916bc9912862.png?v=1700214792423",
+                "description": "Màn hình Retina 16 inch, chip Apple M2 Pro, Touch Bar.",
+                "specs": {
+                    "screen": "16 inch Retina Display",
+                    "processor": "Apple M2 Pro",
+                    "camera": "1080p FaceTime HD",
+                    "battery": "100Wh",
+                    "colors": [
+                        {"name": "Xám", "image": "https://bizweb.dktcdn.net/100/502/883/products/220608111844-thumb-macbook-pro-m-92a41cea-1766-4864-b183-14d77a6372e3-35b96841-a2ff-4f13-a7cd-916bc9912862.png?v=1700214792423"},
+                        {"name": "Bạc", "image": "https://bizweb.dktcdn.net/100/502/883/products/220608110533-thumb-macbook-pro-m-310b0711-1ec6-4dda-b889-34b3604502dc-7d76586c-fe20-4b39-9b58-ba23a22d03af.png?v=1700214792423"}
+                    ]
+                }
+            },
+            {
+                "id": 4 ,
+                "name": "Apple Watch S7 LTE 45mm - Chính Hãng VN/A",
+                "brand": "Apple",
+                "categoryId": 4,
+                "price": 500,
+                "stock": 15,
+                "image": "https://bizweb.dktcdn.net/100/502/883/products/220817045837-s7-lte-nhom-su-blue.png?v=1700214386510",
+                "description": "Màn hình Always-On Retina, chip S9, theo dõi sức khỏe 24/7.",
+                "specs": {
+                    "screen": "1.9 inch Retina Display",
+                    "processor": "Apple S9",
+                    "battery": "18 giờ",
+                    "colors": [
+                        {"name": "Đen", "image": "https://bizweb.dktcdn.net/100/502/883/products/220817045815-s7-lte-nhom-su-blac.png?v=1700214388980"},
+                        {"name": "Xanh", "image": "https://bizweb.dktcdn.net/100/502/883/products/220817045827-s7-lte-nhom-su-gree.png?v=1700214387150"},
+                        {"name": "Đỏ", "image": "https://bizweb.dktcdn.net/100/502/883/products/230822111212-apple-wacth-s7-lte.png?v=1700214389613"}
+                    ]
+                }
+            },
+            {
+                "id": 5 ,
+                "name": "iPhone 15 Pro Max",
+                "brand": "Apple",
+                "categoryId": 1,
+                "price": 1300,
+                "stock": 12,
+                "image": "https://bizweb.dktcdn.net/100/502/883/products/230913060526-iphone-15-pro-max-n-1-59f45888-19c4-48c6-9803-1d3828deeba9-eab63bca-5bbf-4dc6-ac81-6b49a59aadf2.png?v=1700195375837",
+                "description": "Màn hình Super Retina XDR 6.7 inch, chip A17 Pro, camera 48MP.",
+                "specs": {
+                    "screen": "6.7 inch OLED",
+                    "processor": "A17 Pro",
+                    "camera": "48MP + 12MP + 12MP",
+                    "battery": "3300mAh",
+                    "storage": ["256GB", "512GB", "1TB"],
+                    "colors": [
+                        {"name": "Titan", "image": "https://bizweb.dktcdn.net/100/502/883/products/230913060526-iphone-15-pro-max-n-1-59f45888-19c4-48c6-9803-1d3828deeba9-eab63bca-5bbf-4dc6-ac81-6b49a59aadf2.png?v=1700195375837"},
+                        {"name": "Đen", "image": "https://bizweb.dktcdn.net/100/502/883/products/230913060438-iphone-15-pro-max-b-1-a6e28d40-f9e3-483f-ae8b-39d2fc6ba938-4c716093-ff64-4103-9e9e-f9070ad1b221.png?v=1700195375837"},
+                        {"name": "Trắng ", "image": "https://bizweb.dktcdn.net/100/502/883/products/230913060551-iphone-15-pro-max-w-1-117b06e2-2655-4221-a137-84277d8fb594-0ff6a96b-1fec-49c0-b1a0-3bbea125ecfe.png?v=1700195375837"}
+                    ]
+                }
+            },
+            {
+                "id": 6 ,
+                "name": "iPad Air 5 64GB Wifi - Chính hãng VN",
+                "brand": "Apple",
+                "categoryId": 2,
+                "price": 800,
+                "stock": 15,
+                "image": "https://bizweb.dktcdn.net/100/502/883/products/220309063455-ipad-air-select-wif.png?v=1700213087077",
+                "description": "Màn hình Liquid Retina 10.9 inch, chip M1, hỗ trợ Apple Pencil 2.",
+                "specs": {
+                    "screen": "10.9 inch Liquid Retina",
+                    "processor": "Apple M1",
+                    "camera": "12MP Ultra Wide",
+                    "battery": "7606mAh",
+                    "storage": ["64GB", "256GB"],
+                    "colors": [
+                        {"name": "Tím", "image": "https://bizweb.dktcdn.net/100/502/883/products/220309063447-ipad-air-select-wif.png?v=1700213087077"},
+                        {"name": "Trắng ", "image": "https://bizweb.dktcdn.net/100/502/883/products/220309063614-ipad-air-select-wif.png?v=1700213087077"},
+                        {"name": "Hồng","images": "https://bizweb.dktcdn.net/100/502/883/products/220309063455-ipad-air-select-wif.png?v=1700213087077"}
+                    ]
+                }
+            },
+            {
+                "id": 7 ,
+                "name": "iMac M3 2023 24 Inch [8 CPU | 8 GPU] 8GB 256GB SSD",
+                "brand": "Apple",
+                "categoryId": 3,
+                "price": 1800,
+                "stock": 7,
+                "image": "https://bizweb.dktcdn.net/thumb/medium/100/502/883/products/imac-231031035135.png?v=1700215208680",
+                "description": "Màn hình Retina 24 inch, chip Apple M3, RAM 8GB, SSD 256GB.",
+                "specs": {
+                    "screen": "24 inch Retina Display",
+                    "processor": "Apple M3",
+                    "camera": "1080p FaceTime HD",
+                    "battery": "N/A",
+                    "colors": [
+                        {"name": "Vàng", "image": "https://bizweb.dktcdn.net/thumb/medium/100/502/883/products/imac-231031035135.png?v=1700215208680"},
+                        {"name": "Xanh Dương", "image": "https://bizweb.dktcdn.net/thumb/medium/100/502/883/products/imacgreen-2310310410291.png?v=1700215209520"}
+                    ]
+                }
+            },
+            {
+                "id": 8,
+                "name": "Apple Watch SE 2022 GPS 40mm - Chính hãng VN/A",
+                "brand": "Apple",
+                "categoryId": 4,
+                "price": 300,
+                "stock": 20,
+                "image": "https://bizweb.dktcdn.net/100/502/883/products/230707101901-apple-watch-se-2022.png?v=1700214265100",
+                "description": "Màn hình Retina OLED 40mm, chip S8, chống nước WR50.",
+                "specs": {
+                    "screen": "40mm Retina OLED",
+                    "processor": "Apple S8",
+                    "battery": "18 giờ",
+                    "colors": [
+                        {"name": "Đen", "image": "https://bizweb.dktcdn.net/thumb/medium/100/502/883/products/230707101843-apple-watch-se-2022.png?v=1700214266887"},
+                        {"name": "Trắng ", "image": "https://bizweb.dktcdn.net/100/502/883/products/230707101901-apple-watch-se-2022.png?v=1700214265100"},
+                        {"name": "Be ", "image": "https://bizweb.dktcdn.net/100/502/883/products/230707101821-apple-watch-se-2022.png?v=1700214266513"}
+                    ]
+                }
+            },
+            {
+            "id": 9,
+            "name": "iPhone 14 Pro",
+            "brand": "Apple",
+            "categoryId": 1,
+            "price": 1200,
+            "stock": 10,    
+            "image": "https://bizweb.dktcdn.net/thumb/medium/100/502/883/products/230628110910-iphone-14-pro-max-1-1bad29d8-76a1-4f4a-9bc2-93eee6a2d7ea-61e61768-f143-48bd-a884-d552977c5f1c.png?v=1700193758290",
+            "description": "Màn hình Super Retina XDR 6.1 inch, chip A16 Bionic, camera 48MP.",
+            "specs": {
+                "screen": "6.1 inch OLED",
+                "processor": "A16 Bionic",
+                "camera": "48MP + 12MP + 12MP",
+                "battery": "3200mAh",
+                "storage": ["128GB", "256GB", "512GB", "1TB"],
+                "colors": [
+                {"name": "Trắng", "image": "https://bizweb.dktcdn.net/thumb/medium/100/502/883/products/230628110910-iphone-14-pro-max-1-1bad29d8-76a1-4f4a-9bc2-93eee6a2d7ea-61e61768-f143-48bd-a884-d552977c5f1c.png?v=1700193758290"},
+                {"name": "Tím", "image": "https://bizweb.dktcdn.net/100/502/883/products/230628111028-iphone-14-pro-max-1-a5e6da1a-c735-4fe2-9b0a-f3bc6dd37a1d-dfc9b037-9f53-4b32-bea3-86e50efbbbdb.png?v=1700193758290"},
+                {"name": "Đen", "image": "https://bizweb.dktcdn.net/100/502/883/products/230628111038-iphone-14-pro-max-1-e30dba1e-6ef4-4b16-a558-9ad0694aea94.png?v=1700193712213"},
+                {"name": "Vàng", "image": "https://bizweb.dktcdn.net/100/502/883/products/230628110901-iphone-14-pro-max-1-254fb9b6-ce50-4aca-9900-e1cb305de85d.png?v=1700193712213"}
+                ]
+            }
+            }
+        ],
+        "users": [
+            {
+            "id": 1,
+            "username": "admin",
+            "password": "123456",
+            "role": "admin"
+            },
+            {
+            "id": 2,
+            "username": "user1",
+            "password": "password",
+            "role": "customer"
+            }
+        ],
+        "cart": [
+            {
+            "id": 1,
+            "userId": 2,
+            "items": [
+                { "phoneId": 1, "quantity": 1 },
+                { "phoneId": 2, "quantity": 2 }
+            ]
+            }
+        ],
+        "orders": [
+            {
+            "id": 1,
+            "userId": 2,
+            "items": [
+                { "phoneId": 1, "quantity": 1 },
+                { "phoneId": 2, "quantity": 1 }
+            ],
+            "total": 2200,
+            "status": "pending",
+            "shippingAddress": "123 Đường ABC, Quận 1, TP.HCM",
+            "paymentMethod": "Credit Card"
+            }
+        ],
+        "reviews": [
+            {
+            "id": 1,
+            "phoneId": 1,
+            "userId": 2,
+            "rating": 5,
+            "comment": "Sản phẩm rất tốt!"
+            },
+            {
+            "id": 2,
+            "phoneId": 2,
+            "userId": 2,
+            "rating": 4,
+            "comment": "Thiết kế đẹp, hiệu năng mạnh mẽ."
+            }
+        ]
+        }
