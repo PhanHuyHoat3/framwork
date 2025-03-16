@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../store/store';
+import { AppDispatch, RootState } from '../../store/store';
 import { useEffect } from 'react';
-import { fetchCategory1 } from '../store/slice/categoryProduct';
+import { fetchCategory1 } from '../../store/slice/categoryProduct';
 
 const CategoryProduct = () => {
   const dispatch = useDispatch<AppDispatch>();

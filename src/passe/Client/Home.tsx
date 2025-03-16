@@ -4,7 +4,7 @@ import { IoIosSearch } from 'react-icons/io';
 import { FaPhoneAlt, FaUserCircle } from 'react-icons/fa';
 import { IoLocationSharp } from 'react-icons/io5';
 import { FaShoppingCart } from 'react-icons/fa';
-import CategoryProduct from '../components/categoryProduct';
+import CategoryProduct from '../../components/Client/categoryProduct';
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);

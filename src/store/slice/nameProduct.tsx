@@ -1,13 +1,32 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { brandProductAPi, fetchCategoryByIdApi } from '../api/productApi';
+import { brandProductAPi } from '../api/productApi';
+import { fetchCategoryByIdApi } from '../api/categoryApi';
 
 export interface Product {
   id: number;
   name: string;
+  brand: string;
   categoryId: number;
   price: number;
+  sale: number;
+  stock: number;
   image: string;
   description: string;
+  new: boolean;
+  outstanding: boolean;
+  best: boolean;
+  specs: {
+    screen: string;
+    processor: string;
+    camera: string;
+    battery: string;
+    colors: [
+      {
+        name: string;
+        image: string;
+      }
+    ];
+  };
 }
 
 export interface Category {
@@ -47,7 +66,6 @@ export const fetchProductsWithCategory = createAsyncThunk(
   }
 );
 
-
 const productSlice = createSlice({
   name: 'brandProduct',
   initialState,
@@ -76,7 +94,7 @@ const productSlice = createSlice({
           state.categoryName[action.payload.categoryId] =
             action.payload.categoryName;
         }
-    )
+      )
       .addCase(fetchProductsWithCategory.rejected, (state) => {
         state.loading = false;
       });
