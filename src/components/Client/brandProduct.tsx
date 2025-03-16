@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../store/store';
 import { useEffect } from 'react';
-import { fetchProductsWithCategory } from '../store/slice/nameProduct';
+import { AppDispatch, RootState } from '../../store/store';
+import { fetchProductsWithCategory } from '../../store/slice/nameProduct';
 
 const BrandProduct = ({ categoryId }: { categoryId: number }) => {
   const dispatch = useDispatch<AppDispatch>();

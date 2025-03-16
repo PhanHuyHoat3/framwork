@@ -1,9 +1,11 @@
-import BrandProduct from '../components/brandProduct';
+import BrandProduct from '../../components/Client/brandProduct';
+import ListProduct from '../../components/Client/listProduct';
+import SelectProduct from '../../components/Client/selectProduct';
 
 function Product() {
   return (
     <>
-      <section className="flex justify-center items-center bg-[#f2f2f2">
+      <section className="flex justify-center items-center bg-[#f2f2f2]">
         <div>
           <div>
             <img
@@ -13,7 +15,7 @@ function Product() {
             />
           </div>
           <div className=" flex justify-center items-center m-3 ">
-            <div className="grid grid-cols-4 gap-4 w-[1200px] shadow-sm shadow-white bg-white rounded-sm  border-2 p-2 ">
+            <div className="grid grid-cols-4 gap-4 w-[1200px] shadow-sm shadow-white bg-white rounded-[5px]  border-2 p-2 ">
               {/* Mỗi ô chính sách */}
               {[
                 {
@@ -35,7 +37,7 @@ function Product() {
               ].map((item, index) => (
                 <div
                   key={index}
-                  className=" flex items-center justify-center p-3 border-[#000f8f] border-2 rounded-md"
+                  className=" flex items-center justify-center p-3 border-[#000f8f] border-2 rounded-[5px]"
                 >
                   <img
                     className="w-[40px] h-[40px] object-contain mr-3"
@@ -48,9 +50,9 @@ function Product() {
             </div>
           </div>
           <div className="flex flex-col justify-center items-center">
-            <div className="shadow-sm shadow-white bg-white rounded-sm  border-2 p-2">
-              <div>
-                <h1>DANH MỤC NỔI BẬT </h1>
+            <div className="shadow-sm shadow-white bg-white rounded-[5px]  border-2 p-2">
+              <div className="my-3">
+                <h1 className="text-2xl font-semibold">DANH MỤC NỔI BẬT </h1>
               </div>
               <div className="grid grid-cols-4 gap-[20px] ">
                 <BrandProduct categoryId={1} />
@@ -58,6 +60,25 @@ function Product() {
                 <BrandProduct categoryId={3} />
                 <BrandProduct categoryId={4} />
               </div>
+            </div>
+          </div>
+          <div className="flex  justify-center items-center my-5">
+            <SelectProduct />
+          </div>
+          <div>
+            <div className="max-w-[290px] p-2 bg-white rounded-[5px]  ">
+              <img
+                className="w-full"
+                src="https://bizweb.dktcdn.net/100/502/883/themes/934584/assets/banner1_product1.jpg?1719764721426"
+                alt=""
+              />
+              <img
+                src="https://bizweb.dktcdn.net/100/502/883/themes/934584/assets/banner2_product1.jpg?1719764721426"
+                alt=""
+              />
+            </div>
+            <div>
+              <ListProduct categoryId={1} />
             </div>
           </div>
         </div>
