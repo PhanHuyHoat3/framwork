@@ -14,6 +14,23 @@ function Product() {
               alt=""
             />
           </div>
+          <div className="flex justify-center items-center gap-3 mt-[-100px]">
+            <div className="rounded-[10px] max-w-[590px] overflow-hidden relative group">
+              <img
+                className="rounded-[10px] transform scale-100 group-hover:scale-110 transition-transform duration-[2000ms] ease-in-out"
+                src="https://bizweb.dktcdn.net/100/502/883/themes/934584/assets/2banner_1.jpg?1719764721426"
+                alt="Banner Image"
+              />
+            </div>
+
+            <div className="rounded-[10px] max-w-[590px] overflow-hidden relative group">
+              <img
+                className="rounded-[10px] transform scale-100 group-hover:scale-110 transition-transform duration-[2000ms] ease-in-out"
+                src="https://bizweb.dktcdn.net/100/502/883/themes/934584/assets/2banner_2.jpg?1719764721426"
+                alt="Banner Image"
+              />
+            </div>
+          </div>
           <div className=" flex justify-center items-center m-3 ">
             <div className="grid grid-cols-4 gap-4 w-[1200px] shadow-sm shadow-white bg-white rounded-[5px]  border-2 p-2 ">
               {/* Mỗi ô chính sách */}
@@ -65,20 +82,55 @@ function Product() {
           <div className="flex  justify-center items-center my-5">
             <SelectProduct />
           </div>
-          <div>
-            <div className="max-w-[290px] p-2 bg-white rounded-[5px]  ">
+          <div className="flex justify-center items-center gap-2 mb-6">
+            <div className="max-w-[240px] p-2 bg-white rounded-[5px]  ">
               <img
-                className="w-full"
+                className="w-full mb-12"
                 src="https://bizweb.dktcdn.net/100/502/883/themes/934584/assets/banner1_product1.jpg?1719764721426"
                 alt=""
               />
               <img
+                className="w-full"
                 src="https://bizweb.dktcdn.net/100/502/883/themes/934584/assets/banner2_product1.jpg?1719764721426"
                 alt=""
               />
             </div>
             <div>
               <ListProduct categoryId={1} />
+            </div>
+          </div>
+          <div className="flex justify-center items-center gap-2 mb-6">
+            <div>
+              <ListProduct categoryId={2} />
+            </div>
+            <div className="max-w-[240px] p-2 bg-white rounded-[5px]  ">
+              <img
+                className="w-full mb-12"
+                src="https://bizweb.dktcdn.net/100/502/883/themes/934584/assets/banner1_product2.jpg?1719764721426"
+                alt=""
+              />
+              <img
+                className="w-full"
+                src="https://bizweb.dktcdn.net/100/502/883/themes/934584/assets/banner2_product2.jpg?1719764721426"
+                alt=""
+              />
+            </div>
+          </div>
+          <div className="flex justify-center items-center gap-2 mb-6">
+            <div className="max-w-[240px] p-2 bg-white rounded-[5px]  ">
+              <img
+                className="w-full mb-12"
+                src="https://bizweb.dktcdn.net/100/502/883/themes/934584/assets/banner1_product1.jpg?1719764721426"
+                alt=""
+              />
+              <img
+                className="w-full"
+                src="https://bizweb.dktcdn.net/100/502/883/themes/934584/assets/banner2_product1.jpg?1719764721426"
+                alt=""
+              />
+            </div>
+            <div>
+              <ListProduct categoryId={3} />
             </div>
           </div>
         </div>

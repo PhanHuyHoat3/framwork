@@ -95,7 +95,7 @@ const SelectProduct = () => {
           </div>
         </div>
         <div className="grid grid-cols-5 gap-5 p-2">
-          {products.map((item) => (
+          {products.slice(0, 10).map((item) => (
             <a href="">
               <div
                 className="max-w-[220px] max-h-[400px] shadow-sm shadow-gray-300 rounded-md border-2 p-4  bg-white transition-shadow duration-300"

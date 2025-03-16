@@ -328,6 +328,202 @@
                         {"name": "Trắng ", "image": "https://bizweb.dktcdn.net/100/502/883/products/230913060551-iphone-15-pro-max-w-1-117b06e2-2655-4221-a137-84277d8fb594-0ff6a96b-1fec-49c0-b1a0-3bbea125ecfe.png?v=1700195375837"}
                     ]
                 }
+            },
+            {
+            "id": 13,
+            "name": "iPad Pro 11 inch M2 2022",
+            "brand": "Apple",
+            "categoryId": 2,
+            "price": 1500,
+            "sale": 1200,
+            "stock": 8,
+            "image": "https://bizweb.dktcdn.net/100/502/883/products/minhtuanmobile-ipad-pro-11-selec-78be9d03-2d95-4a49-968e-a5332eb20465-25342150-a1b4-4244-a941-9089187a0048-44aae303-9599-4883-87ec-8b4256b6f45a.png?v=1700213504547",
+            "description": "Màn hình Liquid Retina XDR 12.9 inch, chip M2, hỗ trợ Apple Pencil 2.",
+                        "new": false,
+            "outstanding": false,
+            "best": true,
+            "specs": {
+                "screen": "12.9 inch Liquid Retina XDR",
+                "processor": "Apple M2",
+                "camera": "12MP Ultra Wide + 10MP Ultra Wide",
+                "battery": "10,758mAh",
+                "storage": ["128GB", "256GB", "512GB", "1TB", "2TB"],
+                "colors": [
+                {"name": "Xám", "image": "https://bizweb.dktcdn.net/100/502/883/products/minhtuanmobile-ipad-pro-11-selec-78be9d03-2d95-4a49-968e-a5332eb20465-25342150-a1b4-4244-a941-9089187a0048-44aae303-9599-4883-87ec-8b4256b6f45a.png?v=1700213504547"},
+                {"name": "Trắng", "image": "https://bizweb.dktcdn.net/100/502/883/products/221019094952-minhtuanmobile-ipad-6ee6a2ec-837a-44f5-942f-241432fa99c5-ec422a31-aa90-45cc-8e80-dff13cc29628-9f2356ab-53d2-42bf-9020-77baa62cf981.png?v=1700213504547"}
+                ]
+            }
+            },
+            {
+            "id": 14,
+            "name": "iPad Pro 11 inch M2 2022",
+            "brand": "Apple",
+            "categoryId": 2,
+            "price": 1500,
+            "sale": 1200,
+            "stock": 8,
+            "image": "https://bizweb.dktcdn.net/100/502/883/products/minhtuanmobile-ipad-pro-11-selec-78be9d03-2d95-4a49-968e-a5332eb20465-25342150-a1b4-4244-a941-9089187a0048-44aae303-9599-4883-87ec-8b4256b6f45a.png?v=1700213504547",
+            "description": "Màn hình Liquid Retina XDR 12.9 inch, chip M2, hỗ trợ Apple Pencil 2.",
+                        "new": false,
+            "outstanding": false,
+            "best": true,
+            "specs": {
+                "screen": "12.9 inch Liquid Retina XDR",
+                "processor": "Apple M2",
+                "camera": "12MP Ultra Wide + 10MP Ultra Wide",
+                "battery": "10,758mAh",
+                "storage": ["128GB", "256GB", "512GB", "1TB", "2TB"],
+                "colors": [
+                {"name": "Xám", "image": "https://bizweb.dktcdn.net/100/502/883/products/minhtuanmobile-ipad-pro-11-selec-78be9d03-2d95-4a49-968e-a5332eb20465-25342150-a1b4-4244-a941-9089187a0048-44aae303-9599-4883-87ec-8b4256b6f45a.png?v=1700213504547"},
+                {"name": "Trắng", "image": "https://bizweb.dktcdn.net/100/502/883/products/221019094952-minhtuanmobile-ipad-6ee6a2ec-837a-44f5-942f-241432fa99c5-ec422a31-aa90-45cc-8e80-dff13cc29628-9f2356ab-53d2-42bf-9020-77baa62cf981.png?v=1700213504547"}
+                ]
+            }
+            },
+            {
+            "id": 15,
+            "name": "iPad Pro 11 inch M2 2022",
+            "brand": "Apple",
+            "categoryId": 2,
+            "price": 1500,
+            "sale": 1200,
+            "stock": 8,
+            "image": "https://bizweb.dktcdn.net/100/502/883/products/minhtuanmobile-ipad-pro-11-selec-78be9d03-2d95-4a49-968e-a5332eb20465-25342150-a1b4-4244-a941-9089187a0048-44aae303-9599-4883-87ec-8b4256b6f45a.png?v=1700213504547",
+            "description": "Màn hình Liquid Retina XDR 12.9 inch, chip M2, hỗ trợ Apple Pencil 2.",
+                        "new": false,
+            "outstanding": false,
+            "best": true,
+            "specs": {
+                "screen": "12.9 inch Liquid Retina XDR",
+                "processor": "Apple M2",
+                "camera": "12MP Ultra Wide + 10MP Ultra Wide",
+                "battery": "10,758mAh",
+                "storage": ["128GB", "256GB", "512GB", "1TB", "2TB"],
+                "colors": [
+                {"name": "Xám", "image": "https://bizweb.dktcdn.net/100/502/883/products/minhtuanmobile-ipad-pro-11-selec-78be9d03-2d95-4a49-968e-a5332eb20465-25342150-a1b4-4244-a941-9089187a0048-44aae303-9599-4883-87ec-8b4256b6f45a.png?v=1700213504547"},
+                {"name": "Trắng", "image": "https://bizweb.dktcdn.net/100/502/883/products/221019094952-minhtuanmobile-ipad-6ee6a2ec-837a-44f5-942f-241432fa99c5-ec422a31-aa90-45cc-8e80-dff13cc29628-9f2356ab-53d2-42bf-9020-77baa62cf981.png?v=1700213504547"}
+                ]
+            }
+            },
+            {
+            "id": 16,
+            "name": "iPad Pro 11 inch M2 2022",
+            "brand": "Apple",
+            "categoryId": 2,
+            "price": 1500,
+            "sale": 1200,
+            "stock": 8,
+            "image": "https://bizweb.dktcdn.net/100/502/883/products/minhtuanmobile-ipad-pro-11-selec-78be9d03-2d95-4a49-968e-a5332eb20465-25342150-a1b4-4244-a941-9089187a0048-44aae303-9599-4883-87ec-8b4256b6f45a.png?v=1700213504547",
+            "description": "Màn hình Liquid Retina XDR 12.9 inch, chip M2, hỗ trợ Apple Pencil 2.",
+                        "new": false,
+            "outstanding": false,
+            "best": true,
+            "specs": {
+                "screen": "12.9 inch Liquid Retina XDR",
+                "processor": "Apple M2",
+                "camera": "12MP Ultra Wide + 10MP Ultra Wide",
+                "battery": "10,758mAh",
+                "storage": ["128GB", "256GB", "512GB", "1TB", "2TB"],
+                "colors": [
+                {"name": "Xám", "image": "https://bizweb.dktcdn.net/100/502/883/products/minhtuanmobile-ipad-pro-11-selec-78be9d03-2d95-4a49-968e-a5332eb20465-25342150-a1b4-4244-a941-9089187a0048-44aae303-9599-4883-87ec-8b4256b6f45a.png?v=1700213504547"},
+                {"name": "Trắng", "image": "https://bizweb.dktcdn.net/100/502/883/products/221019094952-minhtuanmobile-ipad-6ee6a2ec-837a-44f5-942f-241432fa99c5-ec422a31-aa90-45cc-8e80-dff13cc29628-9f2356ab-53d2-42bf-9020-77baa62cf981.png?v=1700213504547"}
+                ]
+            }
+            },
+            {
+                "id": 17,
+                "name": "MacBook Pro M2 13 inch 2022 8CPU 10GPU 256GB| RAM 16GB Chính hãng VN (Z16R0003V- Z16T0003V)",
+                "brand": "Apple",
+                "categoryId": 3,
+                "price": 2500,
+                            "sale": 1200,
+                "stock": 5,
+                "image": "https://bizweb.dktcdn.net/100/502/883/products/220608111844-thumb-macbook-pro-m-92a41cea-1766-4864-b183-14d77a6372e3-35b96841-a2ff-4f13-a7cd-916bc9912862.png?v=1700214792423",
+                "description": "Màn hình Retina 16 inch, chip Apple M2 Pro, Touch Bar.",
+                            "new": true,
+            "outstanding": false,
+            "best": true,
+                "specs": {
+                    "screen": "16 inch Retina Display",
+                    "processor": "Apple M2 Pro",
+                    "camera": "1080p FaceTime HD",
+                    "battery": "100Wh",
+                    "colors": [
+                        {"name": "Xám", "image": "https://bizweb.dktcdn.net/100/502/883/products/220608111844-thumb-macbook-pro-m-92a41cea-1766-4864-b183-14d77a6372e3-35b96841-a2ff-4f13-a7cd-916bc9912862.png?v=1700214792423"},
+                        {"name": "Bạc", "image": "https://bizweb.dktcdn.net/100/502/883/products/220608110533-thumb-macbook-pro-m-310b0711-1ec6-4dda-b889-34b3604502dc-7d76586c-fe20-4b39-9b58-ba23a22d03af.png?v=1700214792423"}
+                    ]
+                }
+            },
+            {
+                "id": 18,
+                "name": "MacBook Pro M2 13 inch 2022 8CPU 10GPU 256GB| RAM 16GB Chính hãng VN (Z16R0003V- Z16T0003V)",
+                "brand": "Apple",
+                "categoryId": 3,
+                "price": 2500,
+                            "sale": 1200,
+                "stock": 5,
+                "image": "https://bizweb.dktcdn.net/100/502/883/products/220608111844-thumb-macbook-pro-m-92a41cea-1766-4864-b183-14d77a6372e3-35b96841-a2ff-4f13-a7cd-916bc9912862.png?v=1700214792423",
+                "description": "Màn hình Retina 16 inch, chip Apple M2 Pro, Touch Bar.",
+                            "new": true,
+            "outstanding": false,
+            "best": true,
+                "specs": {
+                    "screen": "16 inch Retina Display",
+                    "processor": "Apple M2 Pro",
+                    "camera": "1080p FaceTime HD",
+                    "battery": "100Wh",
+                    "colors": [
+                        {"name": "Xám", "image": "https://bizweb.dktcdn.net/100/502/883/products/220608111844-thumb-macbook-pro-m-92a41cea-1766-4864-b183-14d77a6372e3-35b96841-a2ff-4f13-a7cd-916bc9912862.png?v=1700214792423"},
+                        {"name": "Bạc", "image": "https://bizweb.dktcdn.net/100/502/883/products/220608110533-thumb-macbook-pro-m-310b0711-1ec6-4dda-b889-34b3604502dc-7d76586c-fe20-4b39-9b58-ba23a22d03af.png?v=1700214792423"}
+                    ]
+                }
+            },
+            {
+                "id": 19,
+                "name": "MacBook Pro M2 13 inch 2022 8CPU 10GPU 256GB| RAM 16GB Chính hãng VN (Z16R0003V- Z16T0003V)",
+                "brand": "Apple",
+                "categoryId": 3,
+                "price": 2500,
+                            "sale": 1200,
+                "stock": 5,
+                "image": "https://bizweb.dktcdn.net/100/502/883/products/220608111844-thumb-macbook-pro-m-92a41cea-1766-4864-b183-14d77a6372e3-35b96841-a2ff-4f13-a7cd-916bc9912862.png?v=1700214792423",
+                "description": "Màn hình Retina 16 inch, chip Apple M2 Pro, Touch Bar.",
+                            "new": true,
+            "outstanding": false,
+            "best": true,
+                "specs": {
+                    "screen": "16 inch Retina Display",
+                    "processor": "Apple M2 Pro",
+                    "camera": "1080p FaceTime HD",
+                    "battery": "100Wh",
+                    "colors": [
+                        {"name": "Xám", "image": "https://bizweb.dktcdn.net/100/502/883/products/220608111844-thumb-macbook-pro-m-92a41cea-1766-4864-b183-14d77a6372e3-35b96841-a2ff-4f13-a7cd-916bc9912862.png?v=1700214792423"},
+                        {"name": "Bạc", "image": "https://bizweb.dktcdn.net/100/502/883/products/220608110533-thumb-macbook-pro-m-310b0711-1ec6-4dda-b889-34b3604502dc-7d76586c-fe20-4b39-9b58-ba23a22d03af.png?v=1700214792423"}
+                    ]
+                }
+            },
+            {
+                "id": 20,
+                "name": "MacBook Pro M2 13 inch 2022 8CPU 10GPU 256GB| RAM 16GB Chính hãng VN (Z16R0003V- Z16T0003V)",
+                "brand": "Apple",
+                "categoryId": 3,
+                "price": 2500,
+                            "sale": 1200,
+                "stock": 5,
+                "image": "https://bizweb.dktcdn.net/100/502/883/products/220608111844-thumb-macbook-pro-m-92a41cea-1766-4864-b183-14d77a6372e3-35b96841-a2ff-4f13-a7cd-916bc9912862.png?v=1700214792423",
+                "description": "Màn hình Retina 16 inch, chip Apple M2 Pro, Touch Bar.",
+                            "new": true,
+            "outstanding": false,
+            "best": true,
+                "specs": {
+                    "screen": "16 inch Retina Display",
+                    "processor": "Apple M2 Pro",
+                    "camera": "1080p FaceTime HD",
+                    "battery": "100Wh",
+                    "colors": [
+                        {"name": "Xám", "image": "https://bizweb.dktcdn.net/100/502/883/products/220608111844-thumb-macbook-pro-m-92a41cea-1766-4864-b183-14d77a6372e3-35b96841-a2ff-4f13-a7cd-916bc9912862.png?v=1700214792423"},
+                        {"name": "Bạc", "image": "https://bizweb.dktcdn.net/100/502/883/products/220608110533-thumb-macbook-pro-m-310b0711-1ec6-4dda-b889-34b3604502dc-7d76586c-fe20-4b39-9b58-ba23a22d03af.png?v=1700214792423"}
+                    ]
+                }
             }
         ],
         "users": [
