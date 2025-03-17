@@ -77,7 +77,7 @@ const Cart: React.FC<{ userId: number }> = ({ userId }) => {
       setErrorMessage(
         invalidItems
           .map(({ product, quantity }) => {
-            if (!product) return `⚠️ Sản phẩm không tồn tại trong hệ thống.`;
+            if (!product) return `⚠️ Sản phẩm không tồn tại trong hệ thống.đ`;
             if (product.stock === 0)
               return `⚠️ Sản phẩm "${product.name}" đã hết hàng!`;
             return `⚠️ Sản phẩm "${product.name}" chỉ còn ${product.stock} cái, nhưng bạn đã chọn ${quantity}.`;
