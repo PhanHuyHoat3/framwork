@@ -120,12 +120,12 @@ function Product() {
             <div className="max-w-[240px] p-2 bg-white rounded-[5px]  ">
               <img
                 className="w-full mb-12"
-                src="https://bizweb.dktcdn.net/100/502/883/themes/934584/assets/banner1_product1.jpg?1719764721426"
+                src="https://bizweb.dktcdn.net/100/502/883/themes/934584/assets/banner1_product3.jpg?1719764721426"
                 alt=""
               />
               <img
                 className="w-full"
-                src="https://bizweb.dktcdn.net/100/502/883/themes/934584/assets/banner2_product1.jpg?1719764721426"
+                src="https://bizweb.dktcdn.net/100/502/883/themes/934584/assets/banner2_product3.jpg?1719764721426"
                 alt=""
               />
             </div>
