@@ -27,8 +27,8 @@ export const fetchRegister = createAsyncThunk(
   async (userData: Register, { rejectWithValue }) => {
     try {
       return await fetchRegisterApi(userData);
-    } catch (error: any) {
-      return rejectWithValue(error.message);
+    } catch (error) {
+      return rejectWithValue(error);
     }
   }
 );

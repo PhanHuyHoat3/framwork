@@ -24,8 +24,8 @@ const LoginForm = () => {
   const onFinish = async (values: { email: string; password: string }) => {
     try {
       await dispatch(fetchLogin(values)).unwrap();
-    } catch (error) {
-      message.error(`⚠️ ${error}`);
+    } catch (err) {
+      message.error(`⚠️ ${err}`);
     }
   };
 
