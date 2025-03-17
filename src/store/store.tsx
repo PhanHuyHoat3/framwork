@@ -5,6 +5,8 @@ import selectProduct from './slice/selectProduct';
 import idProduct from './slice/idProduct';
 import registerReducer from './slice/register';
 import authReducer from './slice/login';
+import productReducer from './slice/Product';
+import cartReducer from './slice/cartProduct';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +16,8 @@ export const store = configureStore({
     idProduct: idProduct,
     register: registerReducer,
     auth: authReducer,
+    cart: cartReducer,
+    products: productReducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;

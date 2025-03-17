@@ -6,15 +6,21 @@ import {
   fetchnewProduct,
   fetchoutstandingProduct,
 } from '../../store/slice/selectProduct';
+import { addToCart, updateQuantity } from '../../store/slice/cartProduct';
+import { useNavigate } from 'react-router-dom';
+import { Product } from '../../store/slice/nameProduct';
 
 const SelectProduct = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const {
     newProduct = [],
     outstandingProduct = [],
     bestProduct = [],
     loading,
   } = useSelector((state: RootState) => state.select);
+  const user = useSelector((state: RootState) => state.auth.user);
+  const cart = useSelector((state: RootState) => state.cart.items);
 
   const [activeTab, setActiveTab] = useState<'new' | 'outstanding' | 'best'>(
     'new'
@@ -32,6 +38,54 @@ const SelectProduct = () => {
     if (activeTab === 'outstanding') return outstandingProduct || [];
     if (activeTab === 'best') return bestProduct || [];
     return [];
+  };
+  const handleAddToCart = async (product: Product) => {
+    if (!user) {
+      alert('❌ Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!');
+      navigate('/login');
+      return;
+    }
+
+    try {
+      const selectedColor =
+        product.specs.colors.find(
+          (color: { image: string; name: string }) =>
+            color.image === product.image
+        )?.name || product.specs.colors[0]?.name;
+
+      const existingItem = cart.find((item) => item.productId === product.id);
+
+      if (existingItem) {
+        // 🔥 Nếu sản phẩm đã có trong giỏ hàng -> Cập nhật số lượng
+        await dispatch(
+          updateQuantity({
+            userId: user.id,
+            productId: product.id,
+            quantity: existingItem.quantity + 1,
+          })
+        ).unwrap();
+      } else {
+        // 🔥 Nếu sản phẩm chưa có -> Thêm mới vào giỏ hàng
+        await dispatch(
+          addToCart({
+            userId: user.id,
+            product: {
+              productId: product.id,
+              name: product.name,
+              color: selectedColor,
+              image: product.image,
+              price: product.price,
+              quantity: 1,
+            },
+          })
+        ).unwrap();
+      }
+
+      alert(`✅ Đã thêm "${product.name}" (${selectedColor}) vào giỏ hàng!`);
+    } catch (error) {
+      console.error('❌ Lỗi khi thêm sản phẩm vào giỏ hàng:', error);
+      alert('❌ Không thể thêm sản phẩm vào giỏ hàng. Vui lòng thử lại.');
+    }
   };
   if (loading)
     return <p className="text-center text-gray-500 p-2">Loading...</p>;
@@ -96,32 +150,39 @@ const SelectProduct = () => {
         </div>
         <div className="grid grid-cols-5 gap-5 p-2">
           {products.slice(0, 10).map((item) => (
-            <a href="">
+            <div
+              className="max-w-[220px] max-h-[400px] shadow-sm shadow-gray-300 rounded-md border-2 p-4  bg-white transition-shadow duration-300"
+              key={item.id}
+            >
               <div
-                className="max-w-[220px] max-h-[400px] shadow-sm shadow-gray-300 rounded-md border-2 p-4  bg-white transition-shadow duration-300"
-                key={item.id}
+                className="overflow-hidden"
+                onClick={() => navigate(`/product/${item.id}`)}
               >
-                <div className="overflow-hidden">
-                  <img
-                    className="w-full hover:translate-y-[-10px] hover:transition hover:duration-300"
-                    src={item.image}
-                    alt=""
-                  />
-                </div>
+                <img
+                  className="w-full hover:translate-y-[-10px] hover:transition hover:duration-300"
+                  src={item.image}
+                  alt=""
+                />
+              </div>
+              <div>
+                <h3
+                  onClick={() => navigate(`/product/${item.id}`)}
+                  className="line-clamp-2 max-w-[200px] h-[50px] hover:text-yellow-400"
+                >
+                  {item.name}
+                </h3>
+                <p className="text-red-600">{item.price} đ</p>
+                <p className="line-through text-gray-400">{item.sale} đ</p>
                 <div>
-                  <h3 className="line-clamp-2 max-w-[200px] h-[50px] hover:text-yellow-400">
-                    {item.name}
-                  </h3>
-                  <p className="text-red-600">{item.price} đ</p>
-                  <p className="line-through text-gray-400">{item.sale} đ</p>
-                  <div>
-                    <button className="bg-red-400 w-full text-white p-2 rounded-[10px]">
-                      Giỏ hàng
-                    </button>
-                  </div>
+                  <button
+                    onClick={() => handleAddToCart(item)}
+                    className="bg-red-400 w-full text-white p-2 rounded-[10px] relative z-30"
+                  >
+                    Giỏ hàng
+                  </button>
                 </div>
               </div>
-            </a>
+            </div>
           ))}
         </div>
         <div className="flex justify-center items-center my-3   ">

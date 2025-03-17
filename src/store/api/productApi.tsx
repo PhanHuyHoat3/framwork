@@ -53,3 +53,14 @@ export const idProductApi = async (id: number) => {
     return null;
   }
 };
+
+export const ProductsApi = async () => {
+  try {
+    const response = await axios.get(API_URL);
+    // console.log('Fetched products:', response.data);
+    return response.data || [];
+  } catch (error) {
+    console.error('Lỗi gọi API sản phẩm:', error);
+    return [];
+  }
+};
