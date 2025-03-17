@@ -1,13 +1,20 @@
 import { useState, useEffect } from 'react';
 import { IoMenuSharp } from 'react-icons/io5';
 import { IoIosSearch } from 'react-icons/io';
-import { FaPhoneAlt, FaUserCircle } from 'react-icons/fa';
+import { FaPhoneAlt, FaSignOutAlt, FaUserCircle } from 'react-icons/fa';
 import { IoLocationSharp } from 'react-icons/io5';
 import { FaShoppingCart } from 'react-icons/fa';
 import CategoryProduct from '../../components/Client/categoryProduct';
+import { logout } from '../../store/slice/login';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/store';
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showUser, setShowUser] = useState(false);
+
+  const dispatch = useDispatch<AppDispatch>();
+  const { user } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,6 +24,16 @@ export default function Home() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Hiển thị user sau 1.5 giây khi đăng nhập
+  useEffect(() => {
+    if (user) {
+      const timer = setTimeout(() => setShowUser(true), 1500);
+      return () => clearTimeout(timer); // Cleanup timeout khi unmount
+    } else {
+      setShowUser(false);
+    }
+  }, [user]);
 
   return (
     <header
@@ -87,19 +104,36 @@ export default function Home() {
         </div>
 
         {/* Thông tin user */}
-        <div className="relative group flex flex-col items-center ml-3">
-          <FaUserCircle size={20} />
-          <p className="cursor-pointer">Thông tin</p>
-          {/* Dropdown Thông tin */}
-          <div className="opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto absolute top-8 left-1/2 -translate-x-1/2 bg-white text-black p-2 rounded-lg shadow-lg w-28 transition-all duration-200">
-            <a href="#" className="block px-2 py-1 hover:bg-gray-200 rounded">
-              Đăng nhập
-            </a>
-            <a href="#" className="block px-2 py-1 hover:bg-gray-200 rounded">
-              Đăng ký
-            </a>
+        {user && showUser ? (
+          <div className="flex items-center gap-x-2">
+            <p className="font-semibold">{user.username}</p>
+            <FaSignOutAlt
+              className="cursor-pointer"
+              onClick={() => dispatch(logout())}
+            />
           </div>
-        </div>
+        ) : (
+          <div className="relative group flex flex-col items-center ml-3">
+            <FaUserCircle size={20} />
+            <p className="cursor-pointer">Thông tin</p>
+
+            {/* Dropdown Thông tin */}
+            <div className="opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto absolute top-8 left-1/2 -translate-x-1/2 bg-white text-black p-2 rounded-lg shadow-lg w-28 transition-all duration-200">
+              <a
+                href="/login"
+                className="block px-2 py-1 hover:bg-gray-200 rounded"
+              >
+                Đăng nhập
+              </a>
+              <a
+                href="/register"
+                className="block px-2 py-1 hover:bg-gray-200 rounded"
+              >
+                Đăng ký
+              </a>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );

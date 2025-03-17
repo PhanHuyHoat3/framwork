@@ -20,12 +20,11 @@ export interface Product {
     processor: string;
     camera: string;
     battery: string;
-    colors: [
-      {
-        name: string;
-        image: string;
-      }
-    ];
+    storage?: string[];
+    colors: {
+      name: string;
+      image: string;
+    }[];
   };
 }
 

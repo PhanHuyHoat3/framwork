@@ -30,7 +30,7 @@ const BrandProduct = ({ categoryId }: { categoryId: number }) => {
             {/* Sản phẩm chính (trái) */}
             <div className="w-[120px] h-[120px] overflow-hidden">
               <img
-                className="w-full h-full object-cover rounded-md hover:transition-all hover:scale-[1.2] hover:ease-in-out "
+                className="w-full h-full object-cover rounded-md scale-100 hover:transition-all hover:scale-110 transition-transform duration-[400ms] hover:ease-in-out "
                 src={products[0]?.image || 'https://placehold.co/200'}
                 alt={products[0]?.name || 'Product'}
               />
@@ -40,7 +40,7 @@ const BrandProduct = ({ categoryId }: { categoryId: number }) => {
             {products.length > 1 && (
               <div className="relative w-[120px] h-[120px] overflow-hidden group">
                 <img
-                  className="w-full h-full object-cover rounded-md opacity-50  group-hover:opacity-100 group-hover:transition-all group-hover:scale-[1.2] group-hover:ease-in-out "
+                  className="w-full h-full object-cover rounded-md opacity-50 scale-100  group-hover:opacity-100 group-hover:transition-all group-hover:scale-110 group-hover:ease-in-out "
                   src={products[1]?.image || 'https://placehold.co/200'}
                   alt={products[1]?.name || 'Product'}
                 />
@@ -65,5 +65,5 @@ const BrandProduct = ({ categoryId }: { categoryId: number }) => {
     </div>
   );
 };
-
 export default BrandProduct;
+

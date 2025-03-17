@@ -2,9 +2,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { AppDispatch, RootState } from '../../store/store';
 import { fetchProductsWithCategory } from '../../store/slice/nameProduct';
+import { useNavigate } from 'react-router-dom';
 
 const ListProduct = ({ categoryId }: { categoryId: number }) => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const { productsByCategory, categoryName, loading } = useSelector(
     (state: RootState) => state.brandProduct
   );
@@ -79,7 +81,11 @@ const ListProduct = ({ categoryId }: { categoryId: number }) => {
             }}
           >
             {products.map((item) => (
-              <div key={item.id} className="w-[220px]">
+              <div
+                key={item.id}
+                className="w-[220px] "
+                onClick={() => navigate(`/product/${item.id}`)}
+              >
                 <div className="max-w-[220px] max-h-[400px] shadow-sm shadow-gray-300 rounded-md border-2 p-4 bg-white">
                   <div className="overflow-hidden">
                     <img
