@@ -5,6 +5,9 @@ import DetailProduct from './passe/Client/DetailProduct';
 import Register from './passe/Client/Register';
 import Login from './components/Client/login';
 import CartProduct from './passe/Client/Cart';
+import LayoutAdmin from './passe/LayoutAdmin/layout';
+import Dashboard from './components/Admin/dashboard';
+import ProductList from './components/Admin/products';
 
 function App() {
   return (
@@ -16,6 +19,13 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cart" element={<CartProduct />} />
+        </Route>
+        <Route path="/admin" element={<LayoutAdmin />}>
+          <Route index element={<Dashboard />} />
+          <Route path="products" element={<ProductList />} />
+          {/* <Route path="forms" element={<Forms />} />
+          <Route path="calendar" element={<Calendar />} />
+          <Route path="apps" element={<Apps />} /> */}
         </Route>
       </Routes>
     </>
