@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, InputNumber, Checkbox, Button, Select } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -31,7 +31,7 @@ interface Product {
   };
 }
 
-const AddProductForm: React.FC = () => {
+const EditProductForm: React.FC = () => {
   const [product, setProduct] = useState<Product>({
     name: "",
     brand: "",
@@ -56,19 +56,38 @@ const AddProductForm: React.FC = () => {
 
   const queryClient = useQueryClient();
 
+  const params = useParams()
+    const id = params.id
+    const [form] = Form.useForm()
+
   const getAllCategories = async () => {
     const { data } = await axios.get("http://localhost:3000/categories");
     return data;
   };
+
+  const getDetailPro = async () => {
+    const { data } = await axios.get(`http://localhost:3000/products/${id}`);
+    return data;
+  };  
 
   const { data: categories, isLoading } = useQuery({
     queryKey: ["categories"],
     queryFn: getAllCategories,
   });
 
+  const {data} = useQuery({
+    queryKey: ['product', id],
+    queryFn: getDetailPro
+})
+
+useEffect(() => {
+    if(!data) return
+    form.setFieldsValue(data)
+})
+
   const nav = useNavigate()
     const addproduct = async(product:Product) => {
-        await axios.post('http://localhost:3000/products', product)
+        await axios.put(`http://localhost:3000/products/${id}`, product)
     }
 
     const { mutate } = useMutation({
@@ -89,7 +108,7 @@ const AddProductForm: React.FC = () => {
   return (
     // <div className="w-full h-screen flex justify-center items-center p-4 overflow-hidden">
     //     <div className="w-full h-full max-w-4xl h-full p-6 border rounded-lg shadow-lg bg-white flex flex-col overflow-auto">
-        <Form onFinish={handleSubmit} layout="vertical" className="w-full h-[80vh] flex-1 overflow-auto">
+        <Form onFinish={handleSubmit} form={form} layout="vertical" className="w-full h-[80vh] flex-1 overflow-auto">
           <h2 className="text-xl font-bold mb-4 text-center">Thêm Sản Phẩm</h2>
           <div className="grid grid-cols-2 gap-4">
             <Form.Item label="Tên sản phẩm" name="name" rules={[{ required: true, message: "Vui lòng nhập tên sản phẩm!" }]}> 
@@ -184,4 +203,4 @@ const AddProductForm: React.FC = () => {
   );
 };
 
-export default AddProductForm;
+export default EditProductForm;

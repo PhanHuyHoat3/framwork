@@ -16,9 +16,9 @@
       "description": "Giá tốt mỗi ngày"
     },
     {
-      "id": "4",
       "name": "Watch",
-      "description": "Ưu đãi cực khủng"
+      "description": "Ưu đãi cực khủng",
+      "id": "4"
     }
   ],
   "products": [
@@ -500,13 +500,12 @@
       }
     },
     {
-      "id": "14",
       "name": "iPad Pro 11 inch M2 2022",
       "brand": "Apple",
       "categoryId": 2,
       "price": 1500,
       "sale": 1200,
-      "stock": 8,
+      "stock": 8000000,
       "image": "https://bizweb.dktcdn.net/100/502/883/products/minhtuanmobile-ipad-pro-11-selec-78be9d03-2d95-4a49-968e-a5332eb20465-25342150-a1b4-4244-a941-9089187a0048-44aae303-9599-4883-87ec-8b4256b6f45a.png?v=1700213504547",
       "description": "Màn hình Liquid Retina XDR 12.9 inch, chip M2, hỗ trợ Apple Pencil 2.",
       "new": false,
@@ -517,13 +516,6 @@
         "processor": "Apple M2",
         "camera": "12MP Ultra Wide + 10MP Ultra Wide",
         "battery": "10,758mAh",
-        "storage": [
-          "128GB",
-          "256GB",
-          "512GB",
-          "1TB",
-          "2TB"
-        ],
         "colors": [
           {
             "name": "Xám",
@@ -534,7 +526,8 @@
             "image": "https://bizweb.dktcdn.net/100/502/883/products/221019094952-minhtuanmobile-ipad-6ee6a2ec-837a-44f5-942f-241432fa99c5-ec422a31-aa90-45cc-8e80-dff13cc29628-9f2356ab-53d2-42bf-9020-77baa62cf981.png?v=1700213504547"
           }
         ]
-      }
+      },
+      "id": "14"
     },
     {
       "id": "15",
@@ -777,6 +770,31 @@
           }
         ]
       }
+    },
+    {
+      "name": "QUẠT GIÓ",
+      "brand": "Apple",
+      "categoryId": "2",
+      "price": 1155,
+      "sale": 1222,
+      "stock": 12,
+      "image": "https://picsum.photos/300",
+      "description": "Xem kết quả so sánh giữa các chỉ số cục bộ với dữ liệu người dùng thực tế trong Chrome UX Report.\n",
+      "outstanding": true,
+      "best": true,
+      "specs": {
+        "screen": "14",
+        "processor": "123",
+        "camera": "1231",
+        "battery": "4500mh",
+        "colors": [
+          {
+            "name": "Đỏ",
+            "image": "https://picsum.photos/300"
+          }
+        ]
+      },
+      "id": "e2f3"
     }
   ],
   "users": [

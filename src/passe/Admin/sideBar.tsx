@@ -29,20 +29,20 @@ const AdminSidebar = () => {
           <Link to="/admin/products">Products</Link>
         </Menu.Item>
         <Menu.Item key="3" icon={<TableOutlined />}>
-          <Link to="/tables">Tables</Link>
+          <Link to="/admin/category">Categories</Link>
         </Menu.Item>
         <Menu.Item key="4" icon={<InboxOutlined />}>
-          <Link to="/forms">Forms</Link>
+          <Link to="/admin/user">Users</Link>
         </Menu.Item>
         <Menu.Item key="5" icon={<AppstoreOutlined />}>
-          <Link to="/tabs">Tabbed Content</Link>
+          <Link to="/admin/order">Orders</Link>
         </Menu.Item>
-        <Menu.Item key="6" icon={<CalendarOutlined />}>
+        {/* <Menu.Item key="6" icon={<CalendarOutlined />}>
           <Link to="/calendar">Calendar</Link>
         </Menu.Item>
         <Menu.Item key="7" icon={<ArrowUpOutlined />} className="mt-auto">
           <Link to="/upgrade">Upgrade to Pro!</Link>
-        </Menu.Item>
+        </Menu.Item> */}
       </Menu>
     </Sider>
   );

@@ -9,6 +9,12 @@ import LayoutAdmin from './passe/LayoutAdmin/layout';
 import Dashboard from './components/Admin/dashboard';
 import ProductList from './components/Admin/products';
 import AddProductForm from './components/Admin/addproduct';
+import CategoryList from './components/Admin/category';
+import AddCategoryForm from './components/Admin/addcategory';
+import EditProductForm from './components/Admin/editproduct';
+import EditCategoryForm from './components/Admin/editcategory';
+import UserList from './components/Admin/user';
+import OrderList from './components/Admin/order';
 
 function App() {
   return (
@@ -25,6 +31,12 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="products" element={<ProductList />} />
           <Route path="product/add" element={<AddProductForm />} />
+          <Route path="product/:id/edit" element={<EditProductForm />} />
+          <Route path="category" element={<CategoryList />} />
+          <Route path="category/add" element={<AddCategoryForm />} />
+          <Route path="category/:id/edit" element={<EditCategoryForm />} />
+          <Route path="user" element={<UserList />} />
+          <Route path="order" element={<OrderList />} />
           {/* <Route path="forms" element={<Forms />} />
           <Route path="calendar" element={<Calendar />} />
           <Route path="apps" element={<Apps />} /> */}
