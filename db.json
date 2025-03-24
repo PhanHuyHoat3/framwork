@@ -729,6 +729,54 @@
           }
         ]
       }
+    },
+    {
+      "id": "b364",
+      "name": "Smartphone Pro Max AAA",
+      "brand": "Apple",
+      "categoryId": 3,
+      "price": 1300,
+      "sale": 300,
+      "stock": 100,
+      "image": "https://picsum.photos/",
+      "description": "Easy to use, stylish placeholders Just add your desired image size (width & height) after our URL, and you'll get a random image.",
+      "outstanding": true,
+      "specs": {
+        "screen": "14",
+        "processor": "Media Tech",
+        "camera": "100",
+        "battery": "4500mh"
+      }
+    },
+    {
+      "id": "0245",
+      "name": "Smartphone Pro Max",
+      "brand": "Sámsung",
+      "categoryId": 3,
+      "price": 10000,
+      "sale": 222,
+      "stock": 1000,
+      "image": "https://picsum.photos/300",
+      "description": "AAA",
+      "new": true,
+      "outstanding": true,
+      "best": true,
+      "specs": {
+        "screen": "14",
+        "processor": "Media Tech",
+        "camera": "100",
+        "battery": "4500mh",
+        "colors": [
+          {
+            "name": "Đỏ",
+            "image": "https://picsum.photos/300"
+          },
+          {
+            "name": "Xanh",
+            "image": "https://picsum.photos/300"
+          }
+        ]
+      }
     }
   ],
   "users": [

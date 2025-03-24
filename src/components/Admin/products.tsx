@@ -96,16 +96,17 @@ function ProductList() {
         <>
             <div style={{ marginBottom: 16 }}>
                 <Button type="primary">
-                    <Link to="/product/add">Add Product</Link>
+                    <Link to="/admin/product/add">Add Product</Link>
                 </Button>
             </div>
             <Table 
-                dataSource={data} 
-                columns={columns} 
-                loading={isLoading} 
-                scroll={{ y: "calc(100vh - 250px)" }} 
-                rowKey="id" 
-            />
+    dataSource={data?.slice().reverse()} 
+    columns={columns} 
+    loading={isLoading} 
+    scroll={{ y: "calc(100vh - 250px)" }} 
+    rowKey="id" 
+/>
+
         </>
     )
 }
