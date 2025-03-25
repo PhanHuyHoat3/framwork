@@ -5,6 +5,7 @@ import DetailProduct from './passe/Client/DetailProduct';
 import Register from './passe/Client/Register';
 import Login from './components/Client/login';
 import CartProduct from './passe/Client/Cart';
+import Order from './passe/Client/Order';
 import LayoutAdmin from './passe/LayoutAdmin/layout';
 import Dashboard from './components/Admin/dashboard';
 import ProductList from './components/Admin/products';
@@ -26,6 +27,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cart" element={<CartProduct />} />
+          <Route path="/checkout" element={<Order />} />
         </Route>
         <Route path="/admin" element={<LayoutAdmin />}>
           <Route index element={<Dashboard />} />

@@ -7,6 +7,7 @@ import registerReducer from './slice/register';
 import authReducer from './slice/login';
 import productReducer from './slice/Product';
 import cartReducer from './slice/cartProduct';
+import orderReducer from './slice/orderProduct';
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     auth: authReducer,
     cart: cartReducer,
     products: productReducer,
+    order: orderReducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;

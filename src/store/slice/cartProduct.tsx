@@ -4,6 +4,7 @@ import {
   addToCartApi,
   removeFromCartApi,
   updateQuantityApi,
+  clearCartApi, // 🆕 API xóa giỏ hàng
 } from '../api/cartApi';
 
 export interface CartItem {
@@ -19,7 +20,8 @@ export interface CartState {
   id: string | null;
   userId: number | null;
   items: CartItem[];
-  totalItems: number; // 🔥 Cập nhật tổng số lượng sản phẩm trong giỏ hàng
+  totalItems: number;
+  totalPrice: number; // 🆕 Tổng giá trị giỏ hàng
   loading: boolean;
 }
 
@@ -27,11 +29,22 @@ const initialState: CartState = {
   id: null,
   userId: null,
   items: [],
-  totalItems: 0, // 🔥 Bắt đầu từ 0
+  totalItems: 0,
+  totalPrice: 0, // 🔥 Mặc định tổng giá trị là 0
   loading: false,
 };
 
-// 📌 Lấy giỏ hàng
+// 📌 Hàm tính tổng số lượng & tổng giá trị đơn hàng
+const calculateCartTotals = (items: CartItem[]) => {
+  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+  const totalPrice = items.reduce(
+    (sum, item) => sum + item.quantity * item.price,
+    0
+  );
+  return { totalItems, totalPrice };
+};
+
+// 📌 Lấy giỏ hàng từ API
 export const fetchCart = createAsyncThunk(
   'cart/fetchCart',
   async (userId: number) => {
@@ -44,7 +57,7 @@ export const addToCart = createAsyncThunk(
   'cart/addToCart',
   async ({ userId, product }: { userId: number; product: CartItem }) => {
     await addToCartApi(userId, product);
-    return await fetchCartApi(userId); // 🔥 Gọi lại API để cập nhật giỏ hàng
+    return { userId, product }; // 🔥 Cập nhật state ngay lập tức
   }
 );
 
@@ -53,7 +66,7 @@ export const removeFromCart = createAsyncThunk(
   'cart/removeFromCart',
   async ({ userId, productId }: { userId: number; productId: number }) => {
     await removeFromCartApi(userId, productId);
-    return await fetchCartApi(userId); // 🔥 Gọi lại API để cập nhật giỏ hàng
+    return { userId, productId }; // 🔥 Không cần fetch lại toàn bộ giỏ hàng
   }
 );
 
@@ -70,7 +83,16 @@ export const updateQuantity = createAsyncThunk(
     quantity: number;
   }) => {
     await updateQuantityApi(userId, productId, quantity);
-    return await fetchCartApi(userId); // 🔥 Gọi lại API để cập nhật giỏ hàng
+    return { userId, productId, quantity };
+  }
+);
+
+// 📌 Xóa toàn bộ giỏ hàng sau khi đặt hàng
+export const clearCart = createAsyncThunk(
+  'cart/clearCart',
+  async (userId: number) => {
+    await clearCartApi(userId);
+    return userId;
   }
 );
 
@@ -82,31 +104,48 @@ const cartSlice = createSlice({
     builder
       .addCase(fetchCart.fulfilled, (state, action) => {
         state.items = action.payload.items;
-        state.totalItems = state.items.reduce(
-          (sum, item) => sum + item.quantity,
-          0
-        );
+        state.id = action.payload.id;
+        state.userId = action.payload.userId;
+        const { totalItems, totalPrice } = calculateCartTotals(state.items);
+        state.totalItems = totalItems;
+        state.totalPrice = totalPrice;
       })
       .addCase(addToCart.fulfilled, (state, action) => {
-        state.items = action.payload.items;
-        state.totalItems = state.items.reduce(
-          (sum, item) => sum + item.quantity,
-          0
+        const { product } = action.payload;
+        const existingItem = state.items.find(
+          (item) => item.productId === product.productId
         );
+        if (existingItem) {
+          existingItem.quantity += product.quantity;
+        } else {
+          state.items.push(product);
+        }
+        const { totalItems, totalPrice } = calculateCartTotals(state.items);
+        state.totalItems = totalItems;
+        state.totalPrice = totalPrice;
       })
       .addCase(removeFromCart.fulfilled, (state, action) => {
-        state.items = action.payload.items;
-        state.totalItems = state.items.reduce(
-          (sum, item) => sum + item.quantity,
-          0
+        state.items = state.items.filter(
+          (item) => item.productId !== action.payload.productId
         );
+        const { totalItems, totalPrice } = calculateCartTotals(state.items);
+        state.totalItems = totalItems;
+        state.totalPrice = totalPrice;
       })
       .addCase(updateQuantity.fulfilled, (state, action) => {
-        state.items = action.payload.items;
-        state.totalItems = state.items.reduce(
-          (sum, item) => sum + item.quantity,
-          0
-        );
+        const { productId, quantity } = action.payload;
+        const item = state.items.find((item) => item.productId === productId);
+        if (item) {
+          item.quantity = quantity;
+        }
+        const { totalItems, totalPrice } = calculateCartTotals(state.items);
+        state.totalItems = totalItems;
+        state.totalPrice = totalPrice;
+      })
+      .addCase(clearCart.fulfilled, (state) => {
+        state.items = [];
+        state.totalItems = 0;
+        state.totalPrice = 0;
       });
   },
 });

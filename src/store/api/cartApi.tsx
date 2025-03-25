@@ -67,3 +67,20 @@ export const updateQuantityApi = async (
   }
   return axios.put(`${API_URL}/${cart.id}`, cart).then((res) => res.data);
 };
+export const clearCartApi = async (userId: number) => {
+  try {
+    // 🔥 Tìm giỏ hàng của user
+    const response = await axios.get(`${API_URL}?userId=${userId}`);
+    if (response.data.length === 0) {
+      throw new Error('Giỏ hàng không tồn tại');
+    }
+
+    const cartId = response.data[0].id; // 🔹 Lấy ID giỏ hàng
+    await axios.put(`${API_URL}/${cartId}`, { userId, items: [] }); // 🔥 Xóa toàn bộ items
+
+    return { message: 'Giỏ hàng đã được xóa' };
+  } catch (error) {
+    console.error('❌ Lỗi khi xóa giỏ hàng:', error);
+    throw error;
+  }
+};
