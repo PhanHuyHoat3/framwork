@@ -20,12 +20,9 @@ export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
   const { user } = useSelector((state: RootState) => state.auth);
   const cart = useSelector((state: RootState) => state.cart);
-
-  const totalItems = cart.items.reduce(
-    (total, item) => total + item.quantity,
-    0
-  );
-
+  const totalItems = cart.items
+    ? new Set(cart.items.map((item) => item.productId)).size
+    : 0;
   useEffect(() => {
     window.addEventListener('scroll', () => setIsScrolled(window.scrollY > 50));
     return () =>
@@ -52,7 +49,7 @@ export default function Home() {
       }`}
     >
       {/* 🏠 Logo */}
-      <a href="/">
+      <a href="/" className="flex items-center">
         <img
           className="w-auto max-h-[45px]"
           src="https://bizweb.dktcdn.net/100/502/883/themes/934584/assets/logo.png?1719764721426"
@@ -61,15 +58,15 @@ export default function Home() {
       </a>
 
       {/* 🔍 Danh mục + Tìm kiếm */}
-      <div className="flex items-center gap-x-4 flex-grow max-w-3xl">
+      <div className="flex items-center gap-x-4 flex-grow max-w-2xl">
         {/* 📂 Danh mục */}
         <div className="relative group">
-          <button className="flex items-center px-4 py-2 rounded-md bg-gray-800 hover:bg-gray-700 transition">
-            <IoMenuSharp className="text-white text-xl mr-2" />
-            <span className="text-white">Danh mục</span>
+          <button className="flex items-center px-4 py-2 rounded-md bg-gray-800 hover:bg-gray-700 text-white transition">
+            <IoMenuSharp className="text-xl mr-2" />
+            <span>Danh mục</span>
           </button>
           {/* 🛒 Dropdown Danh mục */}
-          <div className="absolute left-0 top-full mt-2 w-48 bg-white text-black rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition">
+          <div className="absolute left-0 top-full mt-2 w-56 bg-white text-black rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
             <CategoryProduct />
           </div>
         </div>
@@ -77,7 +74,7 @@ export default function Home() {
         {/* 🔎 Ô tìm kiếm */}
         <div className="relative flex-grow">
           <input
-            className="w-full p-2 pl-4 pr-10 rounded-lg border border-gray-300 focus:outline-none"
+            className="w-full p-2 pl-4 pr-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             type="text"
             placeholder="Bạn cần tìm gì..."
           />
@@ -88,26 +85,26 @@ export default function Home() {
       {/* 🎯 Các nút bên phải */}
       <div className="flex items-center gap-x-6 text-white">
         {/* 📞 Hotline */}
-        <div className="flex items-center gap-x-2">
+        <div className="flex items-center gap-x-2 text-sm">
           <FaPhoneAlt size={18} />
           <div>
-            <p className="text-sm">Hotline</p>
-            <p className="text-sm font-semibold">1800 6601</p>
+            <p>Hotline</p>
+            <p className="font-semibold">1800 6601</p>
           </div>
         </div>
 
         {/* 📍 Hệ thống cửa hàng */}
-        <div className="flex items-center gap-x-2">
+        <div className="flex items-center gap-x-2 text-sm">
           <IoLocationSharp size={18} />
-          <p className="text-sm w-[100px]">Hệ Thống Cửa hàng</p>
+          <p>Hệ Thống Cửa hàng</p>
         </div>
 
         {/* 🛒 Giỏ hàng */}
-        <a href="/cart" className="relative flex items-center gap-x-2">
+        <a href="/cart" className="relative flex items-center gap-x-2 text-sm">
           <FaShoppingCart size={20} />
-          <p className="text-sm">Giỏ hàng</p>
+          <p>Giỏ hàng</p>
           {totalItems > 0 && (
-            <span className="absolute -top-2 -right-3 bg-white text-black text-xs rounded-full w-5 h-5 flex items-center justify-center">
+            <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
               {totalItems}
             </span>
           )}
@@ -116,9 +113,9 @@ export default function Home() {
         {/* 👤 User Info */}
         {user && showUser ? (
           <div className="flex items-center gap-x-2">
-            <p className="text-sm font-semibold">{user.username}</p>
+            <p className="font-semibold">{user.username}</p>
             <FaSignOutAlt
-              className="cursor-pointer"
+              className="cursor-pointer hover:text-red-500 transition"
               onClick={() => dispatch(logout())}
             />
           </div>
@@ -127,7 +124,7 @@ export default function Home() {
             <FaUserCircle size={20} />
             <p className="cursor-pointer text-sm">Thông tin</p>
             {/* 🏷 Dropdown User */}
-            <div className="absolute top-8 left-1/2 transform -translate-x-1/2 bg-white text-black p-2 rounded-lg shadow-lg w-28 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition">
+            <div className="absolute top-8 left-[15px] transform -translate-x-1/2 bg-white text-black p-2 rounded-lg shadow-lg w-32 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
               <a
                 href="/login"
                 className="block px-2 py-1 hover:bg-gray-200 rounded"

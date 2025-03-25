@@ -64,3 +64,17 @@ export const ProductsApi = async () => {
     return [];
   }
 };
+export const updateProductStock = async (
+  productId: number,
+  quantity: number
+) => {
+  try {
+    const response = await axios.patch(`${API_URL}/${productId}`, {
+      stock: quantity,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('❌ Lỗi cập nhật tồn kho:', error);
+    throw error;
+  }
+};

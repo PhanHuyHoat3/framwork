@@ -7,8 +7,10 @@ import {
   updateQuantity,
 } from '../../store/slice/cartProduct';
 import { fetchProducts } from '../../store/slice/Product';
+import { useNavigate } from 'react-router-dom';
 
 const Cart: React.FC<{ userId: number }> = ({ userId }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
   // 📌 Lấy dữ liệu từ Redux Store
@@ -88,7 +90,7 @@ const Cart: React.FC<{ userId: number }> = ({ userId }) => {
     }
 
     // ✅ Nếu hợp lệ, tiến hành thanh toán
-    alert('✅ Đặt hàng thành công! Cảm ơn bạn đã mua sắm.');
+    navigate('/checkout');
     setErrorMessage(null);
   };
 

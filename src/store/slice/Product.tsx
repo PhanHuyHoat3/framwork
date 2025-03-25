@@ -1,33 +1,59 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { ProductsApi, updateProductStock } from '../api/productApi';
 import { Product } from './nameProduct';
-import { ProductsApi } from '../api/productApi';
 
-// 📌 API URL giả định
-
-// 📌 Định nghĩa kiểu dữ liệu sản phẩm
-
-// 📌 Trạng thái ban đầu của Redux Store
 interface ProductState {
   products: Product[];
   loading: boolean;
   error: string | null;
 }
 
-// 📌 Giá trị mặc định ban đầu
 const initialState: ProductState = {
   products: [],
   loading: false,
   error: null,
 };
 
-// 🎯 Thunk lấy danh sách sản phẩm từ API
-export const fetchProducts = createAsyncThunk(
-  'products/fetchProducts',
-  async () => {
+// 🎯 Thunk lấy danh sách sản phẩm
+export const fetchProducts = createAsyncThunk<
+  Product[],
+  void,
+  { rejectValue: string }
+>('products/fetchProducts', async (_, { rejectWithValue }) => {
+  try {
+    const data = await ProductsApi();
+    if (!data) throw new Error('Không tìm thấy sản phẩm nào');
+    return data;
+  } catch (error: any) {
+    return rejectWithValue(error.message || 'Lỗi không xác định');
+  }
+});
+
+// 🎯 Thunk cập nhật số lượng tồn kho sau khi đặt hàng
+export const updateStock = createAsyncThunk<
+  { productId: number; newStock: number },
+  { productId: number; quantity: number },
+  { rejectValue: string }
+>(
+  'products/updateStock',
+  async ({ productId, quantity }, { rejectWithValue }) => {
     try {
-      return await ProductsApi();
-    } catch (error) {
-      console.error('❌ Lỗi API sản phẩm:', error);
+      // 📌 Lấy thông tin sản phẩm hiện tại
+      const product = await ProductsApi().then((products) =>
+        products.find((p) => p.id === productId)
+      );
+
+      if (!product) throw new Error('Sản phẩm không tồn tại');
+
+      const updatedStock = product.stock - quantity; // ✅ Giảm stock theo số lượng đặt hàng
+
+      if (updatedStock < 0) throw new Error('Số lượng tồn kho không đủ!');
+
+      // 📌 Cập nhật stock trong API
+      const updatedProduct = await updateProductStock(productId, updatedStock);
+      return { productId, newStock: updatedProduct.stock };
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Lỗi cập nhật tồn kho');
     }
   }
 );
@@ -37,7 +63,6 @@ const productSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    // Cập nhật danh sách sản phẩm theo cách thủ công
     setProducts: (state, action: PayloadAction<Product[]>) => {
       state.products = action.payload;
     },
@@ -48,16 +73,26 @@ const productSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(
-        fetchProducts.fulfilled,
-        (state, action: PayloadAction<Product[]>) => {
-          state.loading = false;
-          state.products = action.payload;
-        }
-      )
+      .addCase(fetchProducts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.products = action.payload;
+      })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string;
+        state.error = action.payload || 'Lỗi khi tải sản phẩm';
+      })
+      .addCase(updateStock.fulfilled, (state, action) => {
+        const { productId, newStock } = action.payload;
+        const productIndex = state.products.findIndex(
+          (p) => p.id === productId
+        );
+        if (productIndex !== -1) {
+          state.products[productIndex].stock = newStock; // ✅ Cập nhật stock sau khi trừ số lượng đặt hàng
+        }
+      })
+
+      .addCase(updateStock.rejected, (state, action) => {
+        state.error = action.payload || 'Lỗi cập nhật kho hàng';
       });
   },
 });

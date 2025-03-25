@@ -29,7 +29,7 @@
       "categoryId": 1,
       "price": 1200,
       "sale": 1200,
-      "stock": 10,
+      "stock": 9,
       "image": "https://bizweb.dktcdn.net/thumb/medium/100/502/883/products/230628110910-iphone-14-pro-max-1-1bad29d8-76a1-4f4a-9bc2-93eee6a2d7ea-61e61768-f143-48bd-a884-d552977c5f1c.png?v=1700193758290",
       "description": "Màn hình Super Retina XDR 6.1 inch, chip A16 Bionic, camera 48MP.",
       "new": true,
@@ -110,7 +110,7 @@
       "categoryId": 3,
       "price": 2500,
       "sale": 1200,
-      "stock": 5,
+      "stock": 6,
       "image": "https://bizweb.dktcdn.net/100/502/883/products/220608111844-thumb-macbook-pro-m-92a41cea-1766-4864-b183-14d77a6372e3-35b96841-a2ff-4f13-a7cd-916bc9912862.png?v=1700214792423",
       "description": "Màn hình Retina 16 inch, chip Apple M2 Pro, Touch Bar.",
       "new": true,
@@ -749,54 +749,114 @@
   ],
   "cart": [
     {
-      "id": "1742209530470",
       "userId": "2f30",
       "items": [
         {
-          "productId": "9",
+          "productId": "3",
+          "name": "MacBook Pro M2 13 inch 2022 8CPU 10GPU 256GB| RAM 16GB Chính hãng VN (Z16R0003V- Z16T0003V)",
+          "color": "Xám",
+          "image": "https://bizweb.dktcdn.net/100/502/883/products/220608111844-thumb-macbook-pro-m-92a41cea-1766-4864-b183-14d77a6372e3-35b96841-a2ff-4f13-a7cd-916bc9912862.png?v=1700214792423",
+          "price": 2500,
+          "quantity": 3
+        },
+        {
+          "productId": "1",
+          "name": "iPhone 14 Pro",
+          "color": "Trắng",
+          "image": "https://bizweb.dktcdn.net/thumb/medium/100/502/883/products/230628110910-iphone-14-pro-max-1-1bad29d8-76a1-4f4a-9bc2-93eee6a2d7ea-61e61768-f143-48bd-a884-d552977c5f1c.png?v=1700193758290",
+          "price": 1200,
+          "quantity": 1
+        },
+        {
+          "productId": "12",
           "name": "iPhone 15 Pro Max",
-          "color": "Xanh la",
-          "image": "https://bizweb.dktcdn.net/thumb/large/100/502/883/products/230913051319-iphone-15-plus-gree-3891c830-4f86-46bf-a147-d1e5d001f700-69fc9483-629c-4dd3-a9eb-7603c2a2a135.png?v=1700194426930",
+          "color": "Titan",
+          "image": "https://bizweb.dktcdn.net/thumb/large/100/502/883/products/230310085902-thiet-ke-chua-co-te.png?v=1700192618437",
           "price": 1300,
           "quantity": 1
-        },
-        {
-          "productId": "13",
-          "name": "iPad Pro 11 inch M2 2022",
-          "color": "Xám",
-          "image": "https://bizweb.dktcdn.net/100/502/883/products/minhtuanmobile-ipad-pro-11-selec-78be9d03-2d95-4a49-968e-a5332eb20465-25342150-a1b4-4244-a941-9089187a0048-44aae303-9599-4883-87ec-8b4256b6f45a.png?v=1700213504547",
-          "price": 1500,
-          "quantity": 1
-        },
-        {
-          "productId": "7",
-          "name": "iMac M3 2023 24 Inch [8 CPU | 8 GPU] 8GB 256GB SSD",
-          "color": "Vàng",
-          "image": "https://bizweb.dktcdn.net/thumb/medium/100/502/883/products/imac-231031035135.png?v=1700215208680",
-          "price": 1800,
-          "quantity": 8
         }
-      ]
+      ],
+      "id": "1742209530470"
+    },
+    {
+      "id": "1742801604246",
+      "userId": {
+        "id": "2f30",
+        "username": "Hoatphan",
+        "email": "sont18573@gmail.com",
+        "password": "caycoi369",
+        "role": "user"
+      },
+      "items": []
     }
   ],
   "orders": [
     {
-      "id": "1",
-      "userId": 2,
+      "id": "a9d1",
+      "userId": "2f30",
+      "email": "sont18573@gmail.com",
+      "fullName": "Hoatphan",
+      "phone": 6756765756,
+      "address": "56756756",
+      "province": "fdgdfgfd",
+      "district": "dfgdfgdf",
+      "ward": "dgdfgd",
+      "notes": "dgdfgdfgdf",
+      "paymentMethod": "Chuyen tien",
+      "total": 0,
       "items": [
         {
-          "phoneId": 1,
-          "quantity": 1
-        },
-        {
-          "phoneId": 2,
+          "phoneId": "1",
           "quantity": 1
         }
       ],
-      "total": 2200,
-      "status": "pending",
-      "shippingAddress": "123 Đường ABC, Quận 1, TP.HCM",
-      "paymentMethod": "Credit Card"
+      "status": "pending"
+    },
+    {
+      "id": "745b",
+      "userId": "2f30",
+      "email": "sont18573@gmail.com",
+      "fullName": "Hoatphan",
+      "phone": 6666666666,
+      "address": "thanh hoa",
+      "province": "fdgdfgfd",
+      "district": "dfgdfgdf",
+      "ward": "dgdfgd",
+      "notes": "dsfsdfsdfsdfsd",
+      "paymentMethod": "Chuyen tien",
+      "total": 3700,
+      "items": [
+        {
+          "phoneId": "1",
+          "quantity": 1
+        },
+        {
+          "phoneId": "3",
+          "quantity": 1
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "2d1c",
+      "userId": "2f30",
+      "email": "sont18573@gmail.com",
+      "fullName": "Hoatphan",
+      "phone": 6666666666,
+      "address": "sfdsdf",
+      "province": "sfsdf",
+      "district": "sdfsdf",
+      "ward": "sdfsdf",
+      "notes": "fsdfsdf",
+      "paymentMethod": "Chuyen tien",
+      "total": 1200,
+      "items": [
+        {
+          "phoneId": "1",
+          "quantity": 1
+        }
+      ],
+      "status": "pending"
     }
   ],
   "reviews": [
