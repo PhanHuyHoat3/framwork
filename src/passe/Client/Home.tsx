@@ -112,7 +112,17 @@ export default function Home() {
 
         {/* 👤 User Info */}
         {user && showUser ? (
-          <div className="flex items-center gap-x-2">
+          <div className="flex items-center gap-x-4 relative group h-100px py-1  ">
+            {/* 🌟 Nếu user là admin → Hiển thị nút Admin */}
+            {user.role === 'user' && (
+              <div className="absolute opacity-0  invisible group-hover:opacity-100 group-hover:visible  top-8 left-[50px] transform -translate-x-1/2 bg-gray-800 text-white px-8 py-1 rounded-md">
+                <a href="/admin" className="hover:underline">
+                  Admin fdfd
+                </a>
+              </div>
+            )}
+
+            {/* Hiển thị tên user & nút đăng xuất */}
             <p className="font-semibold">{user.username}</p>
             <FaSignOutAlt
               className="cursor-pointer hover:text-red-500 transition"
