@@ -12,6 +12,7 @@ interface AuthState {
     id: number;
     username: string;
     email: string;
+    role?: string;
   } | null;
   loading: boolean;
   error: string | null;
