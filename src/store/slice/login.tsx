@@ -3,23 +3,25 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:3000/users';
 
-// 📌 Kiểm tra `localStorage` để lấy dữ liệu user đã đăng nhập trước đó
-const storedUser = localStorage.getItem('user');
+// 📌 Lấy user từ `sessionStorage`
+const storedUser = sessionStorage.getItem('user');
 const initialUser = storedUser ? JSON.parse(storedUser) : null;
 
+interface User {
+  id: number;
+  username: string;
+  email: string;
+  role?: string;
+}
+
 interface AuthState {
-  user: {
-    id: number;
-    username: string;
-    email: string;
-    role?: string;
-  } | null;
+  user: User | null;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: AuthState = {
-  user: initialUser, // 🔥 Khởi tạo từ `localStorage`
+  user: initialUser, // 🔥 Lưu trong `sessionStorage`
   loading: false,
   error: null,
 };
@@ -32,6 +34,7 @@ export const fetchLogin = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
+      // 🛠 JSON Server không hỗ trợ `/login`, nên dùng `GET` với query params
       const response = await axios.get(
         `${API_URL}?email=${email}&password=${password}`
       );
@@ -41,10 +44,27 @@ export const fetchLogin = createAsyncThunk(
       }
 
       const user = response.data[0]; // Lấy user đầu tiên
-      localStorage.setItem('user', JSON.stringify(user)); // Lưu vào localStorage
+      sessionStorage.setItem('user', JSON.stringify(user)); // 🔥 Lưu vào `sessionStorage`
       return user;
     } catch (error) {
-      return rejectWithValue('⚠️ Lỗi kết nối đến máy chủ!' + error);
+      return rejectWithValue(
+        '⚠️ Lỗi kết nối đến máy chủ! Vui lòng thử lại.' + error
+      );
+    }
+  }
+);
+
+// 📌 API cập nhật user (khi thay đổi role)
+export const fetchUser = createAsyncThunk(
+  'auth/fetchUser',
+  async (userId: number, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${API_URL}/${userId}`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        '⚠️ Lỗi khi cập nhật thông tin người dùng!' + error
+      );
     }
   }
 );
@@ -56,7 +76,7 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.user = null;
-      localStorage.removeItem('user'); // 🔥 Xóa `localStorage` khi đăng xuất
+      sessionStorage.removeItem('user'); // 🔥 Xóa `sessionStorage` khi đăng xuất
     },
   },
   extraReducers: (builder) => {
@@ -65,16 +85,17 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(
-        fetchLogin.fulfilled,
-        (state, action: PayloadAction<AuthState['user']>) => {
-          state.loading = false;
-          state.user = action.payload;
-        }
-      )
+      .addCase(fetchLogin.fulfilled, (state, action: PayloadAction<User>) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
       .addCase(fetchLogin.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+      })
+      .addCase(fetchUser.fulfilled, (state, action) => {
+        state.user = action.payload; // 🚀 Cập nhật user nếu role thay đổi từ Admin
+        sessionStorage.setItem('user', JSON.stringify(action.payload)); // 🔥 Cập nhật sessionStorage
       });
   },
 });

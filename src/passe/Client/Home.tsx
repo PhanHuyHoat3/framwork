@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/store';
 import { fetchCart } from '../../store/slice/cartProduct';
-import { logout } from '../../store/slice/login';
+import { fetchUser, logout } from '../../store/slice/login'; // ✅ Import API cập nhật user
 import CategoryProduct from '../../components/Client/categoryProduct';
 
 export default function Home() {
@@ -20,19 +20,29 @@ export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
   const { user } = useSelector((state: RootState) => state.auth);
   const cart = useSelector((state: RootState) => state.cart);
+
   const totalItems = cart.items
     ? new Set(cart.items.map((item) => item.productId)).size
     : 0;
+
+  // 🛠 Theo dõi sự kiện cuộn trang để hiển thị header
   useEffect(() => {
-    window.addEventListener('scroll', () => setIsScrolled(window.scrollY > 50));
-    return () =>
-      window.removeEventListener('scroll', () => setIsScrolled(false));
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // 🛠 Lấy giỏ hàng khi user đăng nhập
   useEffect(() => {
-    if (user && user.id) dispatch(fetchCart(user.id));
+    if (user?.id) dispatch(fetchCart(user.id));
   }, [dispatch, user?.id]);
 
+  // 🛠 Cập nhật role mới khi admin thay đổi
+  useEffect(() => {
+    if (user?.id) dispatch(fetchUser(user.id));
+  }, [dispatch, user?.id]);
+
+  // 🛠 Hiển thị user sau 1.5s
   useEffect(() => {
     if (user) {
       const timer = setTimeout(() => setShowUser(true), 1500);
@@ -112,18 +122,18 @@ export default function Home() {
 
         {/* 👤 User Info */}
         {user && showUser ? (
-          <div className="flex items-center gap-x-4 relative group h-100px py-1  ">
-            {/* 🌟 Nếu user là admin → Hiển thị nút Admin */}
-            {user.role === 'user' && (
-              <div className="absolute opacity-0  invisible group-hover:opacity-100 group-hover:visible  top-8 left-[50px] transform -translate-x-1/2 bg-gray-800 text-white px-8 py-1 rounded-md">
+          <div className="flex items-center gap-x-4 relative group py-1">
+            {/* 🌟 Nếu user là admin → Hiển thị nút Admin khi hover */}
+            {user?.role === 'admin' && (
+              <div className="absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-8 left-[50px] transform -translate-x-1/2 bg-gray-800 text-white px-8 py-1 rounded-md">
                 <a href="/admin" className="hover:underline">
-                  Admin fdfd
+                  Admin
                 </a>
               </div>
             )}
 
             {/* Hiển thị tên user & nút đăng xuất */}
-            <p className="font-semibold">{user.username}</p>
+            <p className="font-semibold">{user?.username}</p>
             <FaSignOutAlt
               className="cursor-pointer hover:text-red-500 transition"
               onClick={() => dispatch(logout())}
