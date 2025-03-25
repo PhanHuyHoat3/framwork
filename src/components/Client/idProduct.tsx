@@ -15,14 +15,14 @@ const ProductDetail = () => {
   const [selectedStorage, setSelectedStorage] = useState<string | null>(null);
 
   useEffect(() => {
-    if (id && !isNaN(Number(id))) {
-      dispatch(fetchidProduct(Number(id)));
+    if (id) {
+      dispatch(fetchidProduct(id));  // Truyền ID dưới dạng chuỗi
     }
   }, [dispatch, id]);
 
   useEffect(() => {
     if (product) {
-      if (product.specs.colors.length > 0) {
+      if (product.specs.colors && product.specs.colors.length > 0) {
         setSelectedColor(product.specs.colors[0].image);
       }
       if (product.specs.storage && product.specs.storage.length > 0) {
@@ -59,23 +59,27 @@ const ProductDetail = () => {
           <div className="mt-4">
             <h3 className="text-lg font-semibold mb-2">Chọn màu sắc:</h3>
             <div className="flex gap-3">
-              {product.specs.colors.map((color, index) => (
-                <button
-                  key={index}
-                  className={`w-12 h-12 border rounded-lg p-1 transition ${
-                    selectedColor === color.image
-                      ? 'border-blue-500'
-                      : 'border-gray-300'
-                  }`}
-                  onClick={() => setSelectedColor(color.image)}
-                >
-                  <img
-                    className="w-full h-full object-cover rounded"
-                    src={color.image}
-                    alt={color.name}
-                  />
-                </button>
-              ))}
+              {product.specs.colors && product.specs.colors.length > 0 ? (
+                product.specs.colors.map((color, index) => (
+                  <button
+                    key={index}
+                    className={`w-12 h-12 border rounded-lg p-1 transition ${
+                      selectedColor === color.image
+                        ? 'border-blue-500'
+                        : 'border-gray-300'
+                    }`}
+                    onClick={() => setSelectedColor(color.image)}
+                  >
+                    <img
+                      className="w-full h-full object-cover rounded"
+                      src={color.image}
+                      alt={color.name}
+                    />
+                  </button>
+                ))
+              ) : (
+                <p>Không có màu sắc lựa chọn.</p>
+              )}
             </div>
           </div>
         </div>
@@ -125,25 +129,7 @@ const ProductDetail = () => {
               </div>
             </div>
           ) : null}
-          <div className="mt-6">
-            <h3 className="text-lg font-semibold">Chọn dung lượng:</h3>
-            <div className="flex gap-3 mt-2">
-              {product.specs.colors.map((color, index) => (
-                <button
-                  key={index}
-                  className={`px-4 py-2 border rounded-lg ${
-                    selectedColor === color.image
-                      ? 'border-blue-500 text-blue-500 '
-                      : 'border-gray-300'
-                  }`}
-                  onClick={() => setSelectedColor(color.image)}
-                >
-                  {color.name}
-                </button>
-              ))}
-            </div>
-          </div>
-
+          
           {/* 🛠 Thông số kỹ thuật */}
           <div className="mt-6">
             <h3 className="text-lg font-semibold">Thông số kỹ thuật:</h3>
