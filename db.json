@@ -940,5 +940,32 @@
       "rating": 4,
       "comment": "Thiết kế đẹp, hiệu năng mạnh mẽ."
     }
+  ],
+  "OrderStatus": [
+    {
+      "id": "1",
+      "status": "New",
+      "description": "Đơn hàng đã tạo, chưa được xử lý."
+    },
+    {
+      "id": "2",
+      "status": "Processing",
+      "description": "Đơn hàng đang được chuẩn bị."
+    },
+    {
+      "id": "3",
+      "status": "Shipped",
+      "description": "Đơn hàng đã được giao hoặc đang trên đường."
+    },
+    {
+      "id": "4",
+      "status": "Completed",
+      "description": "Đơn hàng đã được giao và hoàn tất."
+    },
+    {
+      "id": "5",
+      "status": "Cancelled",
+      "description": "Đơn hàng đã bị hủy."
+    }
   ]
 }
