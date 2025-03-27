@@ -141,7 +141,7 @@ export default function Checkout() {
       ...form,
       phone: Number(form.phone),
       items: formattedItems,
-      status: 'pending',
+      status: 'New',
     };
 
     try {
@@ -156,7 +156,7 @@ export default function Checkout() {
 
       alert('✅ Đặt hàng thành công!');
       dispatch(clearCart(authState.user?.id || 0));
-      navigate(' ');
+      navigate('/');
 
       setForm({
         userId: authState.user?.id || 0,

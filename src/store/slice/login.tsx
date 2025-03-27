@@ -78,6 +78,10 @@ const authSlice = createSlice({
       state.user = null;
       sessionStorage.removeItem('user'); // 🔥 Xóa `sessionStorage` khi đăng xuất
     },
+    loginSuccess: (state, action: PayloadAction<User>) => {
+      state.user = action.payload; // ✅ Lưu thông tin người dùng vào Redux
+      state.loading = false;
+    },
   },
   extraReducers: (builder) => {
     builder

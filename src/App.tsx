@@ -16,6 +16,7 @@ import EditProductForm from './components/Admin/editproduct';
 import EditCategoryForm from './components/Admin/editcategory';
 import UserList from './components/Admin/user';
 import OrderList from './components/Admin/order';
+import Search1 from './passe/Client/Search';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/cart" element={<CartProduct />} />
           <Route path="/checkout" element={<Order />} />
+          <Route path="/search" element={<Search1 />} />
         </Route>
         <Route path="/admin" element={<LayoutAdmin />}>
           <Route index element={<Dashboard />} />

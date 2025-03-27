@@ -12,14 +12,21 @@ import { AppDispatch, RootState } from '../../store/store';
 import { fetchCart } from '../../store/slice/cartProduct';
 import { fetchUser, logout } from '../../store/slice/login'; // ✅ Import API cập nhật user
 import CategoryProduct from '../../components/Client/categoryProduct';
+import { fetchProducts, setProducts } from '../../store/slice/Product';
+import { Product } from '../../store/slice/nameProduct';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
+  const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [showUser, setShowUser] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
   const { user } = useSelector((state: RootState) => state.auth);
   const cart = useSelector((state: RootState) => state.cart);
+  const { products } = useSelector((state: RootState) => state.products);
+  const [search, setSearch] = useState('');
+  const [suggestions, setSuggestions] = useState<Product[]>([]);
 
   const totalItems = cart.items
     ? new Set(cart.items.map((item) => item.productId)).size
@@ -51,7 +58,43 @@ export default function Home() {
       setShowUser(false);
     }
   }, [user]);
+  // 🛠 Lấy danh sách sản phẩm khi component mount
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
+  // 📌 Lọc danh sách gợi ý theo tên sản phẩm
+  useEffect(() => {
+    if (search.trim() === '') {
+      setSuggestions([]);
+    } else {
+      const matchedProducts = products.filter((product) =>
+        product.name.toLowerCase().includes(search.toLowerCase())
+      );
+      setSuggestions(matchedProducts.slice(0, 5));
+    }
+  }, [search, products]);
+
+  // ✅ Xử lý khi bấm nút tìm kiếm
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!search.trim()) return; // Nếu không có từ khóa thì không tìm
+    const filteredProducts = products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(search.toLowerCase()) ||
+        product.price.toString().includes(search)
+    );
+    dispatch(setProducts(filteredProducts));
+    setSuggestions([]); // Ẩn danh sách gợi ý sau khi tìm
+    setSearch(''); // Xóa �� tìm kiếm sau khi tìm
+    navigate('/search');
+  };
+
+  // 📌 Xử lý khi chọn sản phẩm từ gợi ý
+  const handleSuggestionClick = (productName: string) => {
+    setSearch(productName); // Điền vào ô tìm kiếm
+    setSuggestions([]); // Ẩn gợi ý khi chọn
+  };
   return (
     <header
       className={`sticky top-0 left-0 right-0 z-50 w-full h-16 bg-[#000f8f] px-6 flex items-center justify-between transition-all duration-300 ${
@@ -83,11 +126,29 @@ export default function Home() {
 
         {/* 🔎 Ô tìm kiếm */}
         <div className="relative flex-grow">
-          <input
-            className="w-full p-2 pl-4 pr-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            type="text"
-            placeholder="Bạn cần tìm gì..."
-          />
+          <form onSubmit={handleSubmit} action="">
+            <input
+              className="w-full p-2 pl-4 pr-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              type="text"
+              placeholder="Bạn cần tìm gì..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            {/* 🔥 Hiển thị gợi ý sản phẩm */}
+            {suggestions.length > 0 && (
+              <ul className="absolute top-full left-0 w-full bg-white border rounded-md shadow-lg z-10">
+                {suggestions.map((product) => (
+                  <li
+                    key={product.id}
+                    onClick={() => handleSuggestionClick(product.name)}
+                    className="p-2 cursor-pointer hover:bg-gray-200 transition"
+                  >
+                    {product.name}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </form>
           <IoIosSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-xl" />
         </div>
       </div>

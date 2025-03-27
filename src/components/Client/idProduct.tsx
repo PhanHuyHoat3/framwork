@@ -1,22 +1,34 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AppDispatch, RootState } from '../../store/store';
 import { fetchidProduct } from '../../store/slice/idProduct';
+import { addReview, fetchReviews } from '../../store/slice/content';
+import { addToCart } from '../../store/slice/cartProduct';
+import { Product } from '../../store/slice/nameProduct';
 
 const ProductDetail = () => {
+  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
   const { product, loading } = useSelector(
     (state: RootState) => state.idProduct
   );
+  const user = useSelector((state: RootState) => state.auth.user) || null;
 
-  const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [selectedColor, setSelectedColor] = useState<{
+    image: string;
+    name: string;
+  } | null>(null);
   const [selectedStorage, setSelectedStorage] = useState<string | null>(null);
-
+  const [newComment, setNewComment] = useState('');
+  const [rating, setRating] = useState(5);
+  const [loadingReviewSubmit, setLoadingReviewSubmit] = useState(false);
+  const { list: reviews } = useSelector((state: RootState) => state.reviews);
   useEffect(() => {
     if (id) {
-      dispatch(fetchidProduct(id));  // Truyền ID dưới dạng chuỗi
+      dispatch(fetchidProduct(id)); // Truyền ID dưới dạng chuỗi
+      dispatch(fetchReviews(Number(id)));
     }
   }, [dispatch, id]);
 
@@ -33,7 +45,71 @@ const ProductDetail = () => {
 
   if (loading) return <p>Loading...</p>;
   if (!product) return <p>Không tìm thấy sản phẩm.</p>;
+  // 📝 Gửi bình luận
+  const handleSubmitReview = async () => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+    if (!newComment.trim()) {
+      alert('Vui lòng nhập nội dung bình luận.');
+      return;
+    }
 
+    setLoadingReviewSubmit(true);
+    try {
+      await dispatch(
+        addReview({
+          phoneId: product.id,
+          userId: user.id,
+          rating,
+          comment: newComment,
+        })
+      ).unwrap();
+      setNewComment('');
+      setRating(5);
+    } catch (error) {
+      alert('Có lỗi xảy ra khi gửi bình luận.' + error);
+    } finally {
+      setLoadingReviewSubmit(false);
+    }
+  };
+  // 🛒 Xử lý thêm sản phẩm vào giỏ hàng
+  const handleAddToCart = async (product: Product) => {
+    if (!user) {
+      alert('❌ Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!');
+      navigate('/login');
+      return;
+    }
+
+    if (!selectedColor) {
+      alert('Vui lòng chọn màu sắc trước khi thêm vào giỏ hàng!');
+      return;
+    }
+
+    try {
+      await dispatch(
+        addToCart({
+          userId: user.id,
+          product: {
+            productId: product.id,
+            name: product.name,
+            color: selectedColor.name, // Lưu màu bằng tên (VD: "Đỏ", "Xanh")
+            image: selectedColor.image, // Ảnh tương ứng với màu
+            price: product.price,
+            quantity: 1,
+          },
+        })
+      ).unwrap();
+
+      alert(
+        `✅ Đã thêm "${product.name}" (${selectedColor.name}) vào giỏ hàng!`
+      );
+    } catch (error) {
+      console.error('❌ Lỗi khi thêm sản phẩm vào giỏ hàng:', error);
+      alert('❌ Không thể thêm sản phẩm vào giỏ hàng. Vui lòng thử lại.');
+    }
+  };
   return (
     <div className="container mx-auto px-4 py-6">
       {/* 🔗 Breadcrumb */}
@@ -129,7 +205,27 @@ const ProductDetail = () => {
               </div>
             </div>
           ) : null}
-          
+          {product.specs.colors && product.specs.colors.length > 0 ? (
+            <div className="mt-6">
+              <h3 className="text-lg font-semibold">Chọn Color:</h3>
+              <div className="flex gap-3 mt-2">
+                {product.specs.colors.map((color, index) => (
+                  <button
+                    key={index}
+                    className={`px-4 py-2 border rounded-lg ${
+                      selectedColor === color.image
+                        ? 'border-blue-500 text-blue-500'
+                        : 'border-gray-300'
+                    }`}
+                    onClick={() => setSelectedColor(color.image)}
+                  >
+                    {color.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
           {/* 🛠 Thông số kỹ thuật */}
           <div className="mt-6">
             <h3 className="text-lg font-semibold">Thông số kỹ thuật:</h3>
@@ -146,18 +242,7 @@ const ProductDetail = () => {
             <button
               className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-semibold"
               onClick={() => {
-                if (!selectedColor) {
-                  alert('Vui lòng chọn màu sắc!');
-                  return;
-                }
-                if (
-                  product.specs.storage &&
-                  product.specs.storage.length > 0 &&
-                  !selectedStorage
-                ) {
-                  alert('Vui lòng chọn dung lượng!');
-                  return;
-                }
+                handleAddToCart(product);
               }}
             >
               Thêm vào giỏ hàng
@@ -166,6 +251,63 @@ const ProductDetail = () => {
               Mua ngay
             </button>
           </div>
+        </div>
+      </div>
+      {/* 📢 Bình luận có thanh cuộn */}
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">
+          📢 Bình luận ({reviews.length})
+        </h2>
+
+        {/* 🔥 Khu vực cuộn */}
+        <div className="max-h-60 overflow-y-auto border rounded-lg p-4 bg-gray-100">
+          {reviews.length === 0 ? (
+            <p className="text-gray-500">Chưa có bình luận nào.</p>
+          ) : (
+            <ul className="space-y-3">
+              {reviews.map((review) => (
+                <li key={review.id} className="border-b pb-3">
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold">
+                      {user?.username || 'Người dùng ẩn danh'}
+                    </span>
+                    <span className="text-yellow-500">
+                      {'⭐'.repeat(review.rating)}
+                    </span>
+                  </div>
+                  <p className="text-gray-700">{review.comment}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        {/* Form nhập bình luận */}
+        <div className="mt-6 flex items-center gap-4">
+          <select
+            className="border p-2 rounded"
+            value={rating}
+            onChange={(e) => setRating(Number(e.target.value))}
+          >
+            {[5, 4, 3, 2, 1].map((star) => (
+              <option key={star} value={star}>
+                {star} ⭐
+              </option>
+            ))}
+          </select>
+          <input
+            type="text"
+            placeholder="Nhập bình luận..."
+            className="flex-1 border p-2 rounded"
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+          />
+          <button
+            onClick={handleSubmitReview}
+            className="bg-blue-500 text-white px-4 py-2 rounded"
+          >
+            {loadingReviewSubmit ? 'Đang gửi...' : 'Gửi'}
+          </button>
         </div>
       </div>
     </div>

@@ -15,7 +15,7 @@ export interface Order {
   paymentMethod: 'Chuyen tien' | 'Tien mat';
   items: CartItem[];
   total: number;
-  status: 'pending' | 'completed' | 'cancelled';
+  status: 'New';
 }
 
 export interface OrderState {

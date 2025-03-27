@@ -1,12 +1,13 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   fetchCartApi,
   addToCartApi,
   removeFromCartApi,
   updateQuantityApi,
-  clearCartApi, // 🆕 API xóa giỏ hàng
+  clearCartApi,
 } from '../api/cartApi';
 
+// 🛒 Định nghĩa kiểu dữ liệu của sản phẩm trong giỏ hàng
 export interface CartItem {
   productId: number;
   name: string;
@@ -16,138 +17,180 @@ export interface CartItem {
   price: number;
 }
 
+// 🛒 Định nghĩa kiểu dữ liệu của state giỏ hàng
 export interface CartState {
   id: string | null;
   userId: number | null;
   items: CartItem[];
   totalItems: number;
-  totalPrice: number; // 🆕 Tổng giá trị giỏ hàng
+  totalPrice: number;
   loading: boolean;
+  error: string | null;
 }
 
+// 🎯 Trạng thái khởi tạo của giỏ hàng
 const initialState: CartState = {
   id: null,
   userId: null,
   items: [],
   totalItems: 0,
-  totalPrice: 0, // 🔥 Mặc định tổng giá trị là 0
+  totalPrice: 0,
   loading: false,
+  error: null,
 };
 
 // 📌 Hàm tính tổng số lượng & tổng giá trị đơn hàng
-const calculateCartTotals = (items: CartItem[]) => {
-  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = items.reduce(
+const calculateCartTotals = (state: CartState) => {
+  state.totalItems = state.items.reduce((sum, item) => sum + item.quantity, 0);
+  state.totalPrice = state.items.reduce(
     (sum, item) => sum + item.quantity * item.price,
     0
   );
-  return { totalItems, totalPrice };
 };
 
 // 📌 Lấy giỏ hàng từ API
 export const fetchCart = createAsyncThunk(
   'cart/fetchCart',
-  async (userId: number) => {
-    return await fetchCartApi(userId);
+  async (userId: number, { rejectWithValue }) => {
+    try {
+      return await fetchCartApi(userId);
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
   }
 );
 
 // 📌 Thêm sản phẩm vào giỏ hàng
 export const addToCart = createAsyncThunk(
   'cart/addToCart',
-  async ({ userId, product }: { userId: number; product: CartItem }) => {
-    await addToCartApi(userId, product);
-    return { userId, product }; // 🔥 Cập nhật state ngay lập tức
+  async (
+    { userId, product }: { userId: number; product: CartItem },
+    { rejectWithValue }
+  ) => {
+    try {
+      const updatedCart = await addToCartApi(userId, product);
+      return updatedCart; // Trả về toàn bộ giỏ hàng mới
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
   }
 );
 
 // 📌 Xóa sản phẩm khỏi giỏ hàng
 export const removeFromCart = createAsyncThunk(
   'cart/removeFromCart',
-  async ({ userId, productId }: { userId: number; productId: number }) => {
-    await removeFromCartApi(userId, productId);
-    return { userId, productId }; // 🔥 Không cần fetch lại toàn bộ giỏ hàng
+  async (
+    { userId, productId }: { userId: number; productId: number },
+    { rejectWithValue }
+  ) => {
+    try {
+      const updatedCart = await removeFromCartApi(userId, productId);
+      return updatedCart; // Trả về giỏ hàng sau khi cập nhật
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
   }
 );
 
-// 📌 Cập nhật số lượng sản phẩm
+// 📌 Cập nhật số lượng sản phẩm trong giỏ hàng
 export const updateQuantity = createAsyncThunk(
   'cart/updateQuantity',
-  async ({
-    userId,
-    productId,
-    quantity,
-  }: {
-    userId: number;
-    productId: number;
-    quantity: number;
-  }) => {
-    await updateQuantityApi(userId, productId, quantity);
-    return { userId, productId, quantity };
+  async (
+    {
+      userId,
+      productId,
+      quantity,
+    }: { userId: number; productId: number; quantity: number },
+    { rejectWithValue }
+  ) => {
+    try {
+      const updatedCart = await updateQuantityApi(userId, productId, quantity);
+      return updatedCart; // Trả về giỏ hàng sau khi cập nhật số lượng
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
   }
 );
 
 // 📌 Xóa toàn bộ giỏ hàng sau khi đặt hàng
 export const clearCart = createAsyncThunk(
   'cart/clearCart',
-  async (userId: number) => {
-    await clearCartApi(userId);
-    return userId;
+  async (userId: number, { rejectWithValue }) => {
+    try {
+      await clearCartApi(userId);
+      return userId;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
   }
 );
 
+// 🎯 Tạo Slice quản lý giỏ hàng
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {},
+  reducers: {
+    resetError: (state) => {
+      state.error = null; // ✅ Thêm action reset lỗi
+    },
+  },
   extraReducers: (builder) => {
     builder
+      // 🛒 Fetch Cart
+      .addCase(fetchCart.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(fetchCart.fulfilled, (state, action) => {
         state.items = action.payload.items;
         state.id = action.payload.id;
         state.userId = action.payload.userId;
-        const { totalItems, totalPrice } = calculateCartTotals(state.items);
-        state.totalItems = totalItems;
-        state.totalPrice = totalPrice;
+        calculateCartTotals(state);
+        state.loading = false;
       })
+      .addCase(fetchCart.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+
+      // 🛍️ Add To Cart
       .addCase(addToCart.fulfilled, (state, action) => {
-        const { product } = action.payload;
-        const existingItem = state.items.find(
-          (item) => item.productId === product.productId
-        );
-        if (existingItem) {
-          existingItem.quantity += product.quantity;
-        } else {
-          state.items.push(product);
-        }
-        const { totalItems, totalPrice } = calculateCartTotals(state.items);
-        state.totalItems = totalItems;
-        state.totalPrice = totalPrice;
+        state.items = action.payload.items; // ✅ Cập nhật toàn bộ giỏ hàng mới
+        calculateCartTotals(state);
       })
+      .addCase(addToCart.rejected, (state, action) => {
+        state.error = action.payload as string;
+      })
+
+      // ❌ Remove From Cart
       .addCase(removeFromCart.fulfilled, (state, action) => {
-        state.items = state.items.filter(
-          (item) => item.productId !== action.payload.productId
-        );
-        const { totalItems, totalPrice } = calculateCartTotals(state.items);
-        state.totalItems = totalItems;
-        state.totalPrice = totalPrice;
+        state.items = action.payload.items; // ✅ Cập nhật lại giỏ hàng sau khi xóa sản phẩm
+        calculateCartTotals(state);
       })
+      .addCase(removeFromCart.rejected, (state, action) => {
+        state.error = action.payload as string;
+      })
+
+      // 🔄 Update Quantity
       .addCase(updateQuantity.fulfilled, (state, action) => {
-        const { productId, quantity } = action.payload;
-        const item = state.items.find((item) => item.productId === productId);
-        if (item) {
-          item.quantity = quantity;
-        }
-        const { totalItems, totalPrice } = calculateCartTotals(state.items);
-        state.totalItems = totalItems;
-        state.totalPrice = totalPrice;
+        state.items = action.payload.items; // ✅ Cập nhật lại giỏ hàng sau khi cập nhật số lượng
+        calculateCartTotals(state);
       })
+      .addCase(updateQuantity.rejected, (state, action) => {
+        state.error = action.payload as string;
+      })
+
+      // 🚮 Clear Cart
       .addCase(clearCart.fulfilled, (state) => {
         state.items = [];
         state.totalItems = 0;
         state.totalPrice = 0;
+      })
+      .addCase(clearCart.rejected, (state, action) => {
+        state.error = action.payload as string;
       });
   },
 });
 
+export const { resetError } = cartSlice.actions; // ✅ Export action reset lỗi
 export default cartSlice.reducer;

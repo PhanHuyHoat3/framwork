@@ -4,12 +4,14 @@ import { Product } from './nameProduct';
 
 interface ProductState {
   products: Product[];
+  filteredProducts: Product[];
   loading: boolean;
   error: string | null;
 }
 
 const initialState: ProductState = {
   products: [],
+  filteredProducts: [],
   loading: false,
   error: null,
 };
@@ -64,7 +66,7 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     setProducts: (state, action: PayloadAction<Product[]>) => {
-      state.products = action.payload;
+      state.filteredProducts = action.payload;
     },
   },
   extraReducers: (builder) => {
