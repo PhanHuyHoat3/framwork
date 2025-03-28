@@ -17,6 +17,8 @@ import EditCategoryForm from './components/Admin/editcategory';
 import UserList from './components/Admin/user';
 import OrderList from './components/Admin/order';
 import Search1 from './passe/Client/Search';
+import OrderDetail from './components/Client/OrderDetail';
+import AdminOrderDetail from './components/Admin/AdminOrderDetail';
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
           <Route path="/cart" element={<CartProduct />} />
           <Route path="/checkout" element={<Order />} />
           <Route path="/search" element={<Search1 />} />
+          <Route path="/client/orders/:id" element={<OrderDetail />} />
+
         </Route>
         <Route path="/admin" element={<LayoutAdmin />}>
           <Route index element={<Dashboard />} />
@@ -41,6 +45,8 @@ function App() {
           <Route path="category/:id/edit" element={<EditCategoryForm />} />
           <Route path="user" element={<UserList />} />
           <Route path="order" element={<OrderList />} />
+          <Route path="admin/orders/:id" element={<AdminOrderDetail />} />
+
           {/* <Route path="forms" element={<Forms />} />
           <Route path="calendar" element={<Calendar />} />
           <Route path="apps" element={<Apps />} /> */}

@@ -811,6 +811,13 @@
       "email": "sont18573@gmail.com",
       "password": "caycoi369",
       "role": "admin"
+    },
+    {
+      "id": "5aaa",
+      "username": "bfbfb",
+      "email": "toanphuctuannguyen@gmail.com",
+      "password": "12345",
+      "role": "user"
     }
   ],
   "cart": [
@@ -828,7 +835,24 @@
         "password": "caycoi369",
         "role": "user"
       },
-      "items": []
+      "items": [
+        {
+          "productId": "3",
+          "name": "MacBook Pro M2 13 inch 2022 8CPU 10GPU 256GB| RAM 16GB Chính hãng VN (Z16R0003V- Z16T0003V)",
+          "color": "Xám",
+          "image": "https://bizweb.dktcdn.net/100/502/883/products/220608111844-thumb-macbook-pro-m-92a41cea-1766-4864-b183-14d77a6372e3-35b96841-a2ff-4f13-a7cd-916bc9912862.png?v=1700214792423",
+          "price": 2500,
+          "quantity": 4
+        },
+        {
+          "productId": "4",
+          "name": "Apple Watch S7 LTE 45mm - Chính Hãng VN/A",
+          "color": "Đen",
+          "image": "https://bizweb.dktcdn.net/100/502/883/products/220817045815-s7-lte-nhom-su-blac.png?v=1700214388980",
+          "price": 500,
+          "quantity": 1
+        }
+      ]
     }
   ],
   "orders": [
@@ -1021,33 +1045,6 @@
       "userId": "2f30",
       "rating": 5,
       "comment": "sdfsdfd"
-    }
-  ],
-  "OrderStatus": [
-    {
-      "id": "1",
-      "status": "New",
-      "description": "Đơn hàng đã tạo, chưa được xử lý."
-    },
-    {
-      "id": "2",
-      "status": "Processing",
-      "description": "Đơn hàng đang được chuẩn bị."
-    },
-    {
-      "id": "3",
-      "status": "Shipped",
-      "description": "Đơn hàng đã được giao hoặc đang trên đường."
-    },
-    {
-      "id": "4",
-      "status": "Completed",
-      "description": "Đơn hàng đã được giao và hoàn tất."
-    },
-    {
-      "id": "5",
-      "status": "Cancelled",
-      "description": "Đơn hàng đã bị hủy."
     }
   ],
   "OrderStatus": [

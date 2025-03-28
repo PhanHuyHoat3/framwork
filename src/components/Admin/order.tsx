@@ -20,12 +20,7 @@ function OrderList() {
     return data;
   };
 
-  // Lấy danh sách trạng thái đơn hàng từ API
-  const fetchOrderStatuses = async () => {
-    const { data } = await axios.get("http://localhost:3000/OrderStatus");
-    return data;
-  };
-
+  
   // Lấy danh sách sản phẩm từ bảng products
   const fetchProducts = async () => {
     const { data } = await axios.get('http://localhost:3000/products');
@@ -130,6 +125,15 @@ function OrderList() {
       dataIndex: 'total',
       key: 'total',
       render: (total: number) => total.toLocaleString() + ' VND',
+    },
+    {
+      title: 'Chi Tiết Đơn Hàng',
+      key: 'action',
+      render: (record: any) => (
+        <Space size="middle">
+          <a href={`/client/orders/${record.id}`}>Xem Chi Tiết</a>
+        </Space>
+      ),
     },
     {
       title: 'Trạng thái',

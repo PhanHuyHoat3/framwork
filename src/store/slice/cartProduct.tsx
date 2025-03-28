@@ -15,6 +15,7 @@ export interface CartItem {
   image: string;
   quantity: number;
   price: number;
+  
 }
 
 // 🛒 Định nghĩa kiểu dữ liệu của state giỏ hàng
