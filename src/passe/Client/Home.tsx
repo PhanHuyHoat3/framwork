@@ -165,10 +165,9 @@ export default function Home() {
         </div>
 
         {/* 📍 Hệ thống cửa hàng */}
-        <div className="flex items-center gap-x-2 text-sm">
-          <IoLocationSharp size={18} />
-          <p>Hệ Thống Cửa hàng</p>
-        </div>
+       <a href="/history"> 
+       <p>Lịch sử đơn hàng</p>
+       </a>
 
         {/* 🛒 Giỏ hàng */}
         <a href="/cart" className="relative flex items-center gap-x-2 text-sm">
@@ -180,6 +179,7 @@ export default function Home() {
             </span>
           )}
         </a>
+        
 
         {/* 👤 User Info */}
         {user && showUser ? (

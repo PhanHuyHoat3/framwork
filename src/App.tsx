@@ -19,6 +19,7 @@ import OrderList from './components/Admin/order';
 import Search1 from './passe/Client/Search';
 import OrderDetail from './components/Client/OrderDetail';
 import AdminOrderDetail from './components/Admin/AdminOrderDetail';
+import Lichsu from './passe/Client/history';
 
 function App() {
   return (
@@ -33,6 +34,9 @@ function App() {
           <Route path="/checkout" element={<Order />} />
           <Route path="/search" element={<Search1 />} />
           <Route path="/client/orders/:id" element={<OrderDetail />} />
+          <Route path="/history" element={<Lichsu />} />
+          <Route path="/history/:id" element={< AdminOrderDetail/>} />
+
 
         </Route>
         <Route path="/admin" element={<LayoutAdmin />}>

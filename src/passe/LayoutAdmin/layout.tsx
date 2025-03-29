@@ -7,6 +7,7 @@ const { Content } = Layout;
 
 export default function LayoutAdmin() {
   return (
+    
     <Layout style={{ height: "100vh" }}>
       <SideBar />
       <Layout>

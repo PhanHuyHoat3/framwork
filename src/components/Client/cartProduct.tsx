@@ -88,7 +88,7 @@ const Cart: React.FC<{ userId: number }> = ({ userId }) => {
       );
       return;
     }
-
+  
     // ✅ Nếu hợp lệ, tiến hành thanh toán
     navigate('/checkout');
     setErrorMessage(null);

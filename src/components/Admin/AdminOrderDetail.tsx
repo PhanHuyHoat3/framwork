@@ -26,7 +26,7 @@ function AdminOrderDetail() {
   // Giao diện chi tiết đơn hàng
   return (
     <div style={{ padding: 20 }}>
-      <h2>Chi Tiết Đơn Hàng (Admin): {id}</h2>
+      <h2>Chi Tiết Đơn Hàng : {id}</h2>
       <Descriptions bordered column={1}>
         <Descriptions.Item label="Mã Đơn Hàng">{order?.id}</Descriptions.Item>
         <Descriptions.Item label="Khách Hàng">{order?.fullName}</Descriptions.Item>
@@ -42,11 +42,7 @@ function AdminOrderDetail() {
         </Descriptions.Item>
         <Descriptions.Item label="Trạng Thái">{order?.status}</Descriptions.Item>
       </Descriptions>
-      {/* Nút hành động */}
-      <div style={{ marginTop: 20 }}>
-        <Button type="primary" style={{ marginRight: 8 }}>Sửa Đơn Hàng</Button>
-        <Button type="danger">Xóa Đơn Hàng</Button>
-      </div>
+      
     </div>
   );
 }
