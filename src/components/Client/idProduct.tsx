@@ -15,6 +15,7 @@ const ProductDetail = () => {
     (state: RootState) => state.idProduct
   );
   const user = useSelector((state: RootState) => state.auth.user) || null;
+  const { list: reviews } = useSelector((state: RootState) => state.reviews);
 
   const [selectedColor, setSelectedColor] = useState<{
     image: string;
@@ -24,10 +25,10 @@ const ProductDetail = () => {
   const [newComment, setNewComment] = useState('');
   const [rating, setRating] = useState(5);
   const [loadingReviewSubmit, setLoadingReviewSubmit] = useState(false);
-  const { list: reviews } = useSelector((state: RootState) => state.reviews);
+
   useEffect(() => {
     if (id) {
-      dispatch(fetchidProduct(id)); // Truyền ID dưới dạng chuỗi
+      dispatch(fetchidProduct(id));
       dispatch(fetchReviews(Number(id)));
     }
   }, [dispatch, id]);
@@ -35,7 +36,7 @@ const ProductDetail = () => {
   useEffect(() => {
     if (product) {
       if (product.specs.colors && product.specs.colors.length > 0) {
-        setSelectedColor(product.specs.colors[0].image);
+        setSelectedColor(product.specs.colors[0]);
       }
       if (product.specs.storage && product.specs.storage.length > 0) {
         setSelectedStorage(product.specs.storage[0]);
@@ -43,8 +44,9 @@ const ProductDetail = () => {
     }
   }, [product]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Đang tải...</p>;
   if (!product) return <p>Không tìm thấy sản phẩm.</p>;
+
   // 📝 Gửi bình luận
   const handleSubmitReview = async () => {
     if (!user) {
@@ -69,11 +71,12 @@ const ProductDetail = () => {
       setNewComment('');
       setRating(5);
     } catch (error) {
-      alert('Có lỗi xảy ra khi gửi bình luận.' + error);
+      alert('Có lỗi xảy ra khi gửi bình luận: ' + error);
     } finally {
       setLoadingReviewSubmit(false);
     }
   };
+
   // 🛒 Xử lý thêm sản phẩm vào giỏ hàng
   const handleAddToCart = async (product: Product) => {
     if (!user) {
@@ -88,20 +91,21 @@ const ProductDetail = () => {
     }
 
     try {
-      await dispatch(
+      const response = await dispatch(
         addToCart({
-          userId: user.id,
+          userId: user.id, // Chuỗi như "2f30" từ JSON
           product: {
-            productId: product.id,
+            productId: product.id, // ID gốc, sẽ được biến đổi trong cartApi
             name: product.name,
-            color: selectedColor.name, // Lưu màu bằng tên (VD: "Đỏ", "Xanh")
-            image: selectedColor.image, // Ảnh tương ứng với màu
+            color: selectedColor.name,
+            image: selectedColor.image,
             price: product.price,
             quantity: 1,
           },
         })
       ).unwrap();
 
+      console.log('Giỏ hàng sau khi thêm:', response); // Kiểm tra dữ liệu trả về
       alert(
         `✅ Đã thêm "${product.name}" (${selectedColor.name}) vào giỏ hàng!`
       );
@@ -127,37 +131,36 @@ const ProductDetail = () => {
         <div className="border p-4 rounded-lg w-[400px] mx-auto">
           <img
             className="w-full h-[400px] object-cover rounded"
-            src={selectedColor || product.image}
+            src={selectedColor?.image || product.image} // Sửa lại để lấy image từ object
             alt={product.name}
           />
 
           {/* 🎨 Chọn màu sắc */}
-          <div className="mt-4">
-            <h3 className="text-lg font-semibold mb-2">Chọn màu sắc:</h3>
-            <div className="flex gap-3">
-              {product.specs.colors && product.specs.colors.length > 0 ? (
-                product.specs.colors.map((color, index) => (
+          {product.specs.colors && product.specs.colors.length > 0 && (
+            <div className="mt-4">
+              <h3 className="text-lg font-semibold mb-2">Chọn màu sắc:</h3>
+              <div className="flex gap-3 flex-wrap">
+                {product.specs.colors.map((color, index) => (
                   <button
                     key={index}
-                    className={`w-12 h-12 border rounded-lg p-1 transition ${
-                      selectedColor === color.image
+                    className={`flex flex-col items-center justify-center w-16 h-20 border rounded-lg p-1 transition ${
+                      selectedColor?.name === color.name
                         ? 'border-blue-500'
                         : 'border-gray-300'
                     }`}
-                    onClick={() => setSelectedColor(color.image)}
+                    onClick={() => setSelectedColor(color)}
                   >
                     <img
-                      className="w-full h-full object-cover rounded"
+                      className="w-full h-12 object-cover rounded"
                       src={color.image}
                       alt={color.name}
                     />
+                    <span className="text-xs mt-1">{color.name}</span>
                   </button>
-                ))
-              ) : (
-                <p>Không có màu sắc lựa chọn.</p>
-              )}
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* 📋 Thông tin sản phẩm */}
@@ -182,7 +185,7 @@ const ProductDetail = () => {
             }`}
           >
             {product.stock > 0 ? 'Còn hàng' : 'Hết hàng'}
-          </p>
+          </p> 
 
           {/* 🛠 Chọn dung lượng */}
           {product.specs.storage && product.specs.storage.length > 0 ? (
@@ -213,11 +216,11 @@ const ProductDetail = () => {
                   <button
                     key={index}
                     className={`px-4 py-2 border rounded-lg ${
-                      selectedColor === color.image
+                      selectedColor?.name === color.name
                         ? 'border-blue-500 text-blue-500'
                         : 'border-gray-300'
                     }`}
-                    onClick={() => setSelectedColor(color.image)}
+                    onClick={() => setSelectedColor(color)}
                   >
                     {color.name}
                   </button>

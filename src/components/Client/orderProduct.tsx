@@ -68,6 +68,7 @@ export default function Checkout() {
     notes: '', // 📌 Thêm trường ghi chú
     paymentMethod: 'Chuyen tien',
     total: totalAmount,
+    createdAt: new Date().toISOString(),
   });
   // 🏗 State lưu danh sách quận & xã theo tỉnh đã chọn
   const [districts, setDistricts] = useState<
