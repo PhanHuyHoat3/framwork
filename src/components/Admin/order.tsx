@@ -20,12 +20,6 @@ function OrderList() {
     return data;
   };
 
-  // Lấy danh sách trạng thái đơn hàng từ API
-  const fetchOrderStatuses = async () => {
-    const { data } = await axios.get("http://localhost:3000/OrderStatus");
-    return data;
-  };
-
   // Lấy danh sách sản phẩm từ bảng products
   const fetchProducts = async () => {
     const { data } = await axios.get('http://localhost:3000/products');
