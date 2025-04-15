@@ -166,8 +166,11 @@ export default function Home() {
 
         {/* 📍 Hệ thống cửa hàng */}
         <div className="flex items-center gap-x-2 text-sm">
-          <IoLocationSharp size={18} />
-          <p>Hệ Thống Cửa hàng</p>
+          <IoLocationSharp size={18} />\
+          <a href="/lichsu">
+            {' '}
+            <p>Hệ Thống Cửa hàng</p>
+          </a>
         </div>
 
         {/* 🛒 Giỏ hàng */}

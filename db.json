@@ -828,10 +828,47 @@
         "password": "caycoi369",
         "role": "user"
       },
-      "items": []
+      "items": [
+        {
+          "productId": 574,
+          "name": "iPhone 14 Pro",
+          "color": "Tím",
+          "image": "https://bizweb.dktcdn.net/100/502/883/products/230628111028-iphone-14-pro-max-1-a5e6da1a-c735-4fe2-9b0a-f3bc6dd37a1d-dfc9b037-9f53-4b32-bea3-86e50efbbbdb.png?v=1700193758290",
+          "price": 1200,
+          "quantity": 1,
+          "originalProductId": "1"
+        },
+        {
+          "productId": 627,
+          "name": "iPhone 14 Pro",
+          "color": "Đen",
+          "image": "https://bizweb.dktcdn.net/100/502/883/products/230628111038-iphone-14-pro-max-1-e30dba1e-6ef4-4b16-a558-9ad0694aea94.png?v=1700193712213",
+          "price": 1200,
+          "quantity": 1,
+          "originalProductId": "1"
+        },
+        {
+          "productId": 667,
+          "name": "iPhone 14 Pro",
+          "color": "Vàng",
+          "image": "https://bizweb.dktcdn.net/100/502/883/products/230628110901-iphone-14-pro-max-1-254fb9b6-ce50-4aca-9900-e1cb305de85d.png?v=1700193712213",
+          "price": 1200,
+          "quantity": 2,
+          "originalProductId": "1"
+        },
+        {
+          "productId": 8410,
+          "name": "iPhone 14 Pro",
+          "color": "Trắng",
+          "image": "https://bizweb.dktcdn.net/thumb/medium/100/502/883/products/230628110910-iphone-14-pro-max-1-1bad29d8-76a1-4f4a-9bc2-93eee6a2d7ea-61e61768-f143-48bd-a884-d552977c5f1c.png?v=1700193758290",
+          "price": 1200,
+          "quantity": 1,
+          "originalProductId": "1"
+        }
+      ]
     }
   ],
-  "orders": [
+   "orders": [
     {
       "id": "a9d1",
       "userId": "2f30",

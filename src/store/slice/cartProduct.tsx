@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
   fetchCartApi,
   addToCartApi,
@@ -7,9 +7,10 @@ import {
   clearCartApi,
 } from '../api/cartApi';
 
-// 🛒 Định nghĩa kiểu dữ liệu của sản phẩm trong giỏ hàng
+// 🛒 Cart Item interface
 export interface CartItem {
   productId: number;
+  originalProductId?: number;
   name: string;
   color: string;
   image: string;
@@ -18,7 +19,7 @@ export interface CartItem {
   price: number;
 }
 
-// 🛒 Định nghĩa kiểu dữ liệu của state giỏ hàng
+// 🛒 Cart State
 export interface CartState {
   id: string | null;
   userId: number | null;
@@ -29,7 +30,7 @@ export interface CartState {
   error: string | null;
 }
 
-// 🎯 Trạng thái khởi tạo của giỏ hàng
+// 🎯 Initial State
 const initialState: CartState = {
   id: null,
   userId: null,
@@ -40,7 +41,7 @@ const initialState: CartState = {
   error: null,
 };
 
-// 📌 Hàm tính tổng số lượng & tổng giá trị đơn hàng
+// 📌 Helper: Tính tổng số lượng & giá tiền
 const calculateCartTotals = (state: CartState) => {
   state.totalItems = state.items.reduce((sum, item) => sum + item.quantity, 0);
   state.totalPrice = state.items.reduce(
@@ -49,7 +50,11 @@ const calculateCartTotals = (state: CartState) => {
   );
 };
 
-// 📌 Lấy giỏ hàng từ API
+// =============================
+// 🔄 ASYNC THUNK FUNCTIONS
+// =============================
+
+// 🛒 Lấy giỏ hàng từ server
 export const fetchCart = createAsyncThunk(
   'cart/fetchCart',
   async (userId: number, { rejectWithValue }) => {
@@ -61,7 +66,7 @@ export const fetchCart = createAsyncThunk(
   }
 );
 
-// 📌 Thêm sản phẩm vào giỏ hàng
+// ➕ Thêm sản phẩm vào giỏ hàng
 export const addToCart = createAsyncThunk(
   'cart/addToCart',
   async (
@@ -69,15 +74,14 @@ export const addToCart = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const updatedCart = await addToCartApi(userId, product);
-      return updatedCart; // Trả về toàn bộ giỏ hàng mới
+      return await addToCartApi(userId, product);
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
   }
 );
 
-// 📌 Xóa sản phẩm khỏi giỏ hàng
+// ❌ Xoá sản phẩm khỏi giỏ hàng
 export const removeFromCart = createAsyncThunk(
   'cart/removeFromCart',
   async (
@@ -85,15 +89,14 @@ export const removeFromCart = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const updatedCart = await removeFromCartApi(userId, productId);
-      return updatedCart; // Trả về giỏ hàng sau khi cập nhật
+      return await removeFromCartApi(userId, productId);
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
   }
 );
 
-// 📌 Cập nhật số lượng sản phẩm trong giỏ hàng
+// 🔁 Cập nhật số lượng sản phẩm
 export const updateQuantity = createAsyncThunk(
   'cart/updateQuantity',
   async (
@@ -105,15 +108,14 @@ export const updateQuantity = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const updatedCart = await updateQuantityApi(userId, productId, quantity);
-      return updatedCart; // Trả về giỏ hàng sau khi cập nhật số lượng
+      return await updateQuantityApi(userId, productId, quantity);
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
   }
 );
 
-// 📌 Xóa toàn bộ giỏ hàng sau khi đặt hàng
+// 🧹 Xoá toàn bộ giỏ hàng
 export const clearCart = createAsyncThunk(
   'cart/clearCart',
   async (userId: number, { rejectWithValue }) => {
@@ -126,26 +128,29 @@ export const clearCart = createAsyncThunk(
   }
 );
 
-// 🎯 Tạo Slice quản lý giỏ hàng
+// =============================
+// 🧩 SLICE DEFINITION
+// =============================
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
     resetError: (state) => {
-      state.error = null; // ✅ Thêm action reset lỗi
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
     builder
-      // 🛒 Fetch Cart
+      // 👉 Fetch Cart
       .addCase(fetchCart.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(fetchCart.fulfilled, (state, action) => {
-        state.items = action.payload.items;
         state.id = action.payload.id;
         state.userId = action.payload.userId;
+        state.items = action.payload.items;
         calculateCartTotals(state);
         state.loading = false;
       })
@@ -154,34 +159,35 @@ const cartSlice = createSlice({
         state.error = action.payload as string;
       })
 
-      // 🛍️ Add To Cart
+      // 👉 Add to Cart
       .addCase(addToCart.fulfilled, (state, action) => {
-        state.items = action.payload.items; // ✅ Cập nhật toàn bộ giỏ hàng mới
+        state.id = action.payload.id;
+        state.items = action.payload.items;
         calculateCartTotals(state);
       })
       .addCase(addToCart.rejected, (state, action) => {
         state.error = action.payload as string;
       })
 
-      // ❌ Remove From Cart
+      // 👉 Remove from Cart
       .addCase(removeFromCart.fulfilled, (state, action) => {
-        state.items = action.payload.items; // ✅ Cập nhật lại giỏ hàng sau khi xóa sản phẩm
+        state.items = action.payload.items;
         calculateCartTotals(state);
       })
       .addCase(removeFromCart.rejected, (state, action) => {
         state.error = action.payload as string;
       })
 
-      // 🔄 Update Quantity
+      // 👉 Update Quantity
       .addCase(updateQuantity.fulfilled, (state, action) => {
-        state.items = action.payload.items; // ✅ Cập nhật lại giỏ hàng sau khi cập nhật số lượng
+        state.items = action.payload.items;
         calculateCartTotals(state);
       })
       .addCase(updateQuantity.rejected, (state, action) => {
         state.error = action.payload as string;
       })
 
-      // 🚮 Clear Cart
+      // 👉 Clear Cart
       .addCase(clearCart.fulfilled, (state) => {
         state.items = [];
         state.totalItems = 0;
@@ -193,5 +199,5 @@ const cartSlice = createSlice({
   },
 });
 
-export const { resetError } = cartSlice.actions; // ✅ Export action reset lỗi
+export const { resetError } = cartSlice.actions;
 export default cartSlice.reducer;

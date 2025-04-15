@@ -9,31 +9,98 @@ import {
 import { fetchProducts } from '../../store/slice/Product';
 import { useNavigate } from 'react-router-dom';
 
-const Cart: React.FC<{ userId: number }> = ({ userId }) => {
+const Cart: React.FC<{ userId: string }> = ({ userId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
   // 📌 Lấy dữ liệu từ Redux Store
-  const { items, loading: cartLoading } = useSelector(
-    (state: RootState) => state.cart
-  );
-  const { products, loading: productsLoading } = useSelector(
-    (state: RootState) => state.products
-  );
+  const {
+    items,
+    loading: cartLoading,
+    error: cartError,
+  } = useSelector((state: RootState) => state.cart);
+  const {
+    products,
+    loading: productsLoading,
+    error: productsError,
+  } = useSelector((state: RootState) => state.products);
 
   // 📌 Trạng thái lỗi
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // 🚀 Gọi API để lấy dữ liệu khi component được render
+  // 🚀 Gọi API để lấy dữ liệu khi component render
   useEffect(() => {
     dispatch(fetchCart(userId));
     dispatch(fetchProducts());
   }, [dispatch, userId]);
 
+  // 📌 Kiểm tra lỗi: gộp tổng số lượng theo originalProductId và so sánh với stock
+  const checkCartErrors = () => {
+    // Gộp số lượng theo originalProductId
+    const groupedByOriginalProductId: {
+      [key: string]: {
+        name: string;
+        totalQuantity: number;
+        productIds: number[];
+      };
+    } = {};
+
+    items.forEach((item) => {
+      if (!groupedByOriginalProductId[item.originalProductId]) {
+        groupedByOriginalProductId[item.originalProductId] = {
+          name: item.name,
+          totalQuantity: 0,
+          productIds: [],
+        };
+      }
+      groupedByOriginalProductId[item.originalProductId].totalQuantity +=
+        item.quantity;
+      if (
+        !groupedByOriginalProductId[item.originalProductId].productIds.includes(
+          item.productId
+        )
+      ) {
+        groupedByOriginalProductId[item.originalProductId].productIds.push(
+          item.productId
+        );
+      }
+    });
+
+    // Kiểm tra tổng số lượng vượt stock
+    const overStockErrors: string[] = [];
+    Object.entries(groupedByOriginalProductId).forEach(
+      ([originalProductId, { name, totalQuantity, productIds }]) => {
+        const product = products.find((p) => p.id === originalProductId);
+        if (product && totalQuantity > product.stock) {
+          overStockErrors.push(
+            `⚠️ Sản phẩm "${name}" (ID: ${productIds.join(
+              ', '
+            )}) có tổng số lượng ${totalQuantity}, vượt quá tồn kho (${
+              product.stock
+            }).`
+          );
+        }
+      }
+    );
+
+    // Tạo thông báo lỗi
+    if (overStockErrors.length > 0) {
+      setErrorMessage(overStockErrors.join('\n'));
+      return false; // Có lỗi
+    } else {
+      setErrorMessage(null);
+      return true; // Không có lỗi
+    }
+  };
+
+  // 📌 Danh sách cartItems (không gộp nếu trùng productId để hiển thị)
+  const cartItems = items;
+
   /** 📌 Xóa sản phẩm khỏi giỏ hàng */
   const handleRemove = async (productId: number) => {
     try {
       await dispatch(removeFromCart({ userId, productId })).unwrap();
+      setErrorMessage(null);
     } catch (error) {
       console.error('Lỗi khi xóa sản phẩm:', error);
       setErrorMessage('❌ Không thể xóa sản phẩm khỏi giỏ hàng!');
@@ -64,35 +131,22 @@ const Cart: React.FC<{ userId: number }> = ({ userId }) => {
       return;
     }
 
-    // 📝 Tạo danh sách sản phẩm kèm thông tin
-    const cartItems = items.map((item) => ({
-      ...item,
-      product: products.find((p) => p.id === item.productId),
-    }));
-
-    // 🔎 Kiểm tra sản phẩm không hợp lệ
-    const invalidItems = cartItems.filter(({ product, quantity }) => {
-      return !product || quantity > product.stock || product.stock === 0;
-    });
-
-    if (invalidItems.length > 0) {
-      setErrorMessage(
-        invalidItems
-          .map(({ product, quantity }) => {
-            if (!product) return `⚠️ Sản phẩm không tồn tại trong hệ thống.đ`;
-            if (product.stock === 0)
-              return `⚠️ Sản phẩm "${product.name}" đã hết hàng!`;
-            return `⚠️ Sản phẩm "${product.name}" chỉ còn ${product.stock} cái, nhưng bạn đã chọn ${quantity}.`;
-          })
-          .join('\n')
-      );
-      return;
+    // Kiểm tra lỗi trước khi thanh toán
+    if (!checkCartErrors()) {
+      return; // Dừng lại nếu có lỗi
     }
 
     // ✅ Nếu hợp lệ, tiến hành thanh toán
     navigate('/checkout');
     setErrorMessage(null);
   };
+
+  // Kiểm tra lỗi mỗi khi items hoặc products thay đổi
+  useEffect(() => {
+    if (products.length > 0) {
+      checkCartErrors();
+    }
+  }, [items, products]);
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
@@ -102,15 +156,15 @@ const Cart: React.FC<{ userId: number }> = ({ userId }) => {
         </h2>
 
         {/* 🔥 Hiển thị lỗi nếu có */}
-        {errorMessage && (
+        {(cartError || productsError || errorMessage) && (
           <p className="text-red-500 text-center font-semibold bg-red-100 p-3 rounded-md mb-4">
-            {errorMessage}
+            {cartError || productsError || errorMessage}
           </p>
         )}
 
         {cartLoading || productsLoading ? (
           <p className="text-gray-500">Đang tải giỏ hàng...</p>
-        ) : items.length === 0 ? (
+        ) : cartItems.length === 0 ? (
           <p className="text-gray-500 text-center">
             Giỏ hàng của bạn đang trống.
           </p>
@@ -130,69 +184,67 @@ const Cart: React.FC<{ userId: number }> = ({ userId }) => {
                 </tr>
               </thead>
               <tbody>
-                {items.map((item) => {
-                  return (
-                    <tr
-                      key={item.productId}
-                      className="border-b hover:bg-gray-100 transition"
-                    >
-                      <td className="py-4 px-4 flex items-center gap-4">
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="w-20 h-20 object-cover rounded-md border"
-                        />
-                        <div>
-                          <p className="line-clamp-2 text-lg font-semibold text-gray-700">
-                            {item.name}
-                          </p>
-                          <button
-                            onClick={() => handleRemove(item.productId)}
-                            className="text-red-500 hover:underline text-sm"
-                          >
-                            Xóa
-                          </button>
-                        </div>
-                      </td>
-                      <td className="py-4 px-4 text-center text-lg font-semibold text-blue-600">
-                        {item.price.toLocaleString()}₫
-                      </td>
-                      <td className=" text-center">
-                        <div className="flex justify-center items-center border rounded-md shadow-sm w-fit ml-6">
-                          <button
-                            onClick={() =>
-                              handleQuantityChange(
-                                item.productId,
-                                item.quantity - 1
-                              )
-                            }
-                            className="px-3 py-2 bg-gray-200 hover:bg-gray-300 text-lg font-semibold"
-                            disabled={item.quantity <= 1}
-                          >
-                            -
-                          </button>
-                          <span className="px-6 w-16 text-lg font-semibold">
-                            {item.quantity}
-                          </span>
-                          <button
-                            onClick={() =>
-                              handleQuantityChange(
-                                item.productId,
-                                item.quantity + 1
-                              )
-                            }
-                            className="px-3 py-2 bg-gray-200 hover:bg-gray-300 text-lg font-semibold"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </td>
-                      <td className="py-4 px-4 text-center text-lg font-semibold text-gray-800">
-                        {(item.price * item.quantity).toLocaleString()}₫
-                      </td>
-                    </tr>
-                  );
-                })}
+                {cartItems.map((item: any) => (
+                  <tr
+                    key={`${item.productId}-${item.color}`} // Thêm color vào key để tránh trùng lặp trong React
+                    className="border-b hover:bg-gray-100 transition"
+                  >
+                    <td className="py-4 px-4 flex items-center gap-4">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-20 h-20 object-cover rounded-md border"
+                      />
+                      <div>
+                        <p className="line-clamp-2 text-lg font-semibold text-gray-700">
+                          {item.name} ({item.color})
+                        </p>
+                        <button
+                          onClick={() => handleRemove(item.productId)}
+                          className="text-red-500 hover:underline text-sm"
+                        >
+                          Xóa
+                        </button>
+                      </div>
+                    </td>
+                    <td className="py-4 px-4 text-center text-lg font-semibold text-blue-600">
+                      {item.price.toLocaleString()}₫
+                    </td>
+                    <td className="text-center">
+                      <div className="flex justify-center items-center border rounded-md shadow-sm w-fit ml-6">
+                        <button
+                          onClick={() =>
+                            handleQuantityChange(
+                              item.productId,
+                              item.quantity - 1
+                            )
+                          }
+                          className="px-3 py-2 bg-gray-200 hover:bg-gray-300 text-lg font-semibold"
+                          disabled={item.quantity <= 1}
+                        >
+                          -
+                        </button>
+                        <span className="px-6 w-16 text-lg font-semibold">
+                          {item.quantity}
+                        </span>
+                        <button
+                          onClick={() =>
+                            handleQuantityChange(
+                              item.productId,
+                              item.quantity + 1
+                            )
+                          }
+                          className="px-3 py-2 bg-gray-200 hover:bg-gray-300 text-lg font-semibold"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </td>
+                    <td className="py-4 px-4 text-center text-lg font-semibold text-gray-800">
+                      {(item.price * item.quantity).toLocaleString()}₫
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
 
@@ -200,9 +252,10 @@ const Cart: React.FC<{ userId: number }> = ({ userId }) => {
               <p className="text-xl font-semibold text-gray-700">
                 Tổng tiền:{' '}
                 <span className="text-red-600">
-                  {items
+                  {cartItems
                     .reduce(
-                      (total, item) => total + item.price * item.quantity,
+                      (total: number, item: any) =>
+                        total + item.price * item.quantity,
                       0
                     )
                     .toLocaleString()}
@@ -222,4 +275,5 @@ const Cart: React.FC<{ userId: number }> = ({ userId }) => {
     </div>
   );
 };
+
 export default Cart;
