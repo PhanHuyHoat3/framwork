@@ -110,7 +110,7 @@
       "categoryId": 3,
       "price": 2500,
       "sale": 1200,
-      "stock": 4,
+      "stock": 3,
       "image": "https://bizweb.dktcdn.net/100/502/883/products/220608111844-thumb-macbook-pro-m-92a41cea-1766-4864-b183-14d77a6372e3-35b96841-a2ff-4f13-a7cd-916bc9912862.png?v=1700214792423",
       "description": "Màn hình Retina 16 inch, chip Apple M2 Pro, Touch Bar.",
       "new": true,
@@ -832,145 +832,203 @@
     }
   ],
   "orders": [
-  {
-    "id": "a9d1",
-    "userId": "2f30",
-    "email": "sont18573@gmail.com",
-    "fullName": "Hoatphan",
-    "phone": 6756765756,
-    "address": "56756756",
-    "province": "fdgdfgfd",
-    "district": "dfgdfgdf",
-    "ward": "dgdfgd",
-    "notes": "dgdfgdfgdf",
-    "paymentMethod": "Chuyen tien",
-    "total": 0,
-    "items": [
-      { "phoneId": "1", "quantity": 1 }
-    ],
-    "status": "Cancelled",
-    "createdAt": "2025-02-05T10:00:00Z"
-  },
-  {
-    "id": "745b",
-    "userId": "2f30",
-    "email": "sont18573@gmail.com",
-    "fullName": "Hoatphan",
-    "phone": 6666666666,
-    "address": "thanh hoa",
-    "province": "fdgdfgfd",
-    "district": "dfgdfgdf",
-    "ward": "dgdfgd",
-    "notes": "dsfsdfsdfsdfsd",
-    "paymentMethod": "Chuyen tien",
-    "total": 3700,
-    "items": [
-      { "phoneId": "1", "quantity": 1 },
-      { "phoneId": "3", "quantity": 1 }
-    ],
-    "status": "Completed",
-    "createdAt": "2025-03-10T15:30:00Z"
-  },
-  {
-    "id": "2d1c",
-    "userId": "2f30",
-    "email": "sont18573@gmail.com",
-    "fullName": "Hoatphan",
-    "phone": 6666666666,
-    "address": "sfdsdf",
-    "province": "sfsdf",
-    "district": "sdfsdf",
-    "ward": "sdfsdf",
-    "notes": "fsdfsdf",
-    "paymentMethod": "Chuyen tien",
-    "total": 1200,
-    "items": [
-      { "phoneId": "1", "quantity": 1 }
-    ],
-    "status": "Completed",
-    "createdAt": "2025-04-02T08:45:00Z"
-  },
-  {
-    "id": "1fb6",
-    "userId": "2f30",
-    "email": "sont18573@gmail.com",
-    "fullName": "Hoatphan",
-    "phone": 6666666666,
-    "address": "thanh hoa",
-    "province": "TP Hồ Chí Minh",
-    "district": "Quận 1",
-    "ward": "Phường Bến Nghé",
-    "notes": "sfsdfsdf",
-    "paymentMethod": "Tien mat",
-    "total": 1200,
-    "items": [
-      { "phoneId": "1", "quantity": 1 }
-    ],
-    "status": "Cancelled",
-    "createdAt": "2025-03-28T11:20:00Z"
-  },
-  {
-    "id": "19f6",
-    "userId": "2f30",
-    "email": "sont18573@gmail.com",
-    "fullName": "Hoatphan",
-    "phone": 793962005,
-    "address": "thanh hoa",
-    "province": "Hà Nội",
-    "district": "Quận Hoàn Kiếm",
-    "ward": "Phường Hàng Bạc",
-    "notes": "dfsdfsd",
-    "paymentMethod": "Chuyen tien",
-    "total": 4900,
-    "items": [
-      { "phoneId": "1", "quantity": 2 },
-      { "phoneId": "3", "quantity": 1 }
-    ],
-    "status": "Cancelled",
-    "createdAt": "2025-02-19T09:10:00Z"
-  },
-  {
-    "id": "6510",
-    "userId": "2f30",
-    "email": "sont18573@gmail.com",
-    "fullName": "Hoatphan",
-    "phone": 6666666666,
-    "address": "thanh hoa",
-    "province": "Hà Nội",
-    "district": "Quận Hoàn Kiếm",
-    "ward": "Phường Hàng Bạc",
-    "notes": "sfsdfsfsdf",
-    "paymentMethod": "Chuyen tien",
-    "total": 1200,
-    "items": [
-      { "phoneId": "1", "quantity": 1 }
-    ],
-    "status": "New",
-    "createdAt": "2025-04-05T13:00:00Z"
-  },
-  {
-    "id": "e2ce",
-    "userId": "2f30",
-    "email": "sont18573@gmail.com",
-    "fullName": "Hoatphan",
-    "phone": 6666666666,
-    "address": "sfsdfs",
-    "province": "Hà Nội",
-    "district": "Quận Hoàn Kiếm",
-    "ward": "Phường Hàng Bạc",
-    "notes": "sdfsdfsdfsdf",
-    "paymentMethod": "Chuyen tien",
-    "total": 5800,
-    "items": [
-      { "phoneId": "1", "quantity": 1 },
-      { "phoneId": "3", "quantity": 1 },
-      { "phoneId": "5", "quantity": 1 },
-      { "phoneId": "6", "quantity": 1 }
-    ],
-    "status": "New",
-    "createdAt": "2025-04-12T16:10:00Z"
-  }
-],
+    {
+      "id": "a9d1",
+      "userId": "2f30",
+      "email": "sont18573@gmail.com",
+      "fullName": "Hoatphan",
+      "phone": 6756765756,
+      "address": "56756756",
+      "province": "fdgdfgfd",
+      "district": "dfgdfgdf",
+      "ward": "dgdfgd",
+      "notes": "dgdfgdfgdf",
+      "paymentMethod": "Chuyen tien",
+      "total": 0,
+      "items": [
+        {
+          "phoneId": "1",
+          "quantity": 1
+        }
+      ],
+      "status": "Cancelled",
+      "createdAt": "2025-02-05T10:00:00Z"
+    },
+    {
+      "id": "745b",
+      "userId": "2f30",
+      "email": "sont18573@gmail.com",
+      "fullName": "Hoatphan",
+      "phone": 6666666666,
+      "address": "thanh hoa",
+      "province": "fdgdfgfd",
+      "district": "dfgdfgdf",
+      "ward": "dgdfgd",
+      "notes": "dsfsdfsdfsdfsd",
+      "paymentMethod": "Chuyen tien",
+      "total": 3700,
+      "items": [
+        {
+          "phoneId": "1",
+          "quantity": 1
+        },
+        {
+          "phoneId": "3",
+          "quantity": 1
+        }
+      ],
+      "status": "Completed",
+      "createdAt": "2025-03-10T15:30:00Z"
+    },
+    {
+      "id": "2d1c",
+      "userId": "2f30",
+      "email": "sont18573@gmail.com",
+      "fullName": "Hoatphan",
+      "phone": 6666666666,
+      "address": "sfdsdf",
+      "province": "sfsdf",
+      "district": "sdfsdf",
+      "ward": "sdfsdf",
+      "notes": "fsdfsdf",
+      "paymentMethod": "Chuyen tien",
+      "total": 1200,
+      "items": [
+        {
+          "phoneId": "1",
+          "quantity": 1
+        }
+      ],
+      "status": "Completed",
+      "createdAt": "2025-04-02T08:45:00Z"
+    },
+    {
+      "id": "1fb6",
+      "userId": "2f30",
+      "email": "sont18573@gmail.com",
+      "fullName": "Hoatphan",
+      "phone": 6666666666,
+      "address": "thanh hoa",
+      "province": "TP Hồ Chí Minh",
+      "district": "Quận 1",
+      "ward": "Phường Bến Nghé",
+      "notes": "sfsdfsdf",
+      "paymentMethod": "Tien mat",
+      "total": 1200,
+      "items": [
+        {
+          "phoneId": "1",
+          "quantity": 1
+        }
+      ],
+      "status": "Cancelled",
+      "createdAt": "2025-03-28T11:20:00Z"
+    },
+    {
+      "id": "19f6",
+      "userId": "2f30",
+      "email": "sont18573@gmail.com",
+      "fullName": "Hoatphan",
+      "phone": 793962005,
+      "address": "thanh hoa",
+      "province": "Hà Nội",
+      "district": "Quận Hoàn Kiếm",
+      "ward": "Phường Hàng Bạc",
+      "notes": "dfsdfsd",
+      "paymentMethod": "Chuyen tien",
+      "total": 4900,
+      "items": [
+        {
+          "phoneId": "1",
+          "quantity": 2
+        },
+        {
+          "phoneId": "3",
+          "quantity": 1
+        }
+      ],
+      "status": "Cancelled",
+      "createdAt": "2025-02-19T09:10:00Z"
+    },
+    {
+      "id": "6510",
+      "userId": "2f30",
+      "email": "sont18573@gmail.com",
+      "fullName": "Hoatphan",
+      "phone": 6666666666,
+      "address": "thanh hoa",
+      "province": "Hà Nội",
+      "district": "Quận Hoàn Kiếm",
+      "ward": "Phường Hàng Bạc",
+      "notes": "sfsdfsfsdf",
+      "paymentMethod": "Chuyen tien",
+      "total": 1200,
+      "items": [
+        {
+          "phoneId": "1",
+          "quantity": 1
+        }
+      ],
+      "status": "Completed",
+      "createdAt": "2025-04-05T13:00:00Z"
+    },
+    {
+      "id": "e2ce",
+      "userId": "2f30",
+      "email": "sont18573@gmail.com",
+      "fullName": "Hoatphan",
+      "phone": 6666666666,
+      "address": "sfsdfs",
+      "province": "Hà Nội",
+      "district": "Quận Hoàn Kiếm",
+      "ward": "Phường Hàng Bạc",
+      "notes": "sdfsdfsdfsdf",
+      "paymentMethod": "Chuyen tien",
+      "total": 5800,
+      "items": [
+        {
+          "phoneId": "1",
+          "quantity": 1
+        },
+        {
+          "phoneId": "3",
+          "quantity": 1
+        },
+        {
+          "phoneId": "5",
+          "quantity": 1
+        },
+        {
+          "phoneId": "6",
+          "quantity": 1
+        }
+      ],
+      "status": "Shipped",
+      "createdAt": "2025-04-12T16:10:00Z"
+    },
+    {
+      "id": "c0ec",
+      "userId": "2f30",
+      "email": "sont18573@gmail.com",
+      "fullName": "Hoatphan",
+      "phone": 6666666666,
+      "address": "thanh hoa",
+      "province": "Hà Nội",
+      "district": "Quận Hoàn Kiếm",
+      "ward": "Phường Hàng Bạc",
+      "notes": "dsfsdfsdf",
+      "paymentMethod": "Chuyen tien",
+      "total": 2500,
+      "createdAt": "2025-04-15T04:40:54.645Z",
+      "items": [
+        {
+          "phoneId": "3",
+          "quantity": 1
+        }
+      ],
+      "status": "Completed"
+    }
+  ],
   "reviews": [
     {
       "id": "1",

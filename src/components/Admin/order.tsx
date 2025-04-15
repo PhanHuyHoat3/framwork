@@ -1,9 +1,7 @@
-
 import React from 'react';
 import { Table, Tag, Select, Space } from 'antd';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-
 
 function OrderList() {
   const queryClient = useQueryClient();
@@ -32,10 +30,12 @@ function OrderList() {
     return data;
   };
 
-  const { data: orders, isLoading } = useQuery({
+  const { data: ordersData, isLoading } = useQuery({
     queryKey: ['orders'],
     queryFn: fetchOrders,
   });
+
+  const orders = ordersData?.slice().reverse();
   const { data: products } = useQuery({
     queryKey: ['products'],
     queryFn: fetchProducts,
@@ -81,7 +81,6 @@ function OrderList() {
       products?.find((product: any) => product.id === productId)?.name ||
       'Unknown'
     );
-
   };
 
   // Ánh xạ ID -> tên khách hàng từ bảng `users`

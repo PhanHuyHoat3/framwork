@@ -16,6 +16,7 @@ export interface Order {
   items: CartItem[];
   total: number;
   status: 'New';
+  createdAt: string;
 }
 
 export interface OrderState {
