@@ -1,7 +1,9 @@
+
 import React from 'react';
 import { Table, Tag, Select, Space } from 'antd';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+
 
 function OrderList() {
   const queryClient = useQueryClient();
@@ -15,6 +17,12 @@ function OrderList() {
   // Lấy danh sách trạng thái đơn hàng từ API
   const fetchOrderStatuses = async () => {
     const { data } = await axios.get('http://localhost:3000/OrderStatus');
+    return data;
+  };
+
+  // Lấy danh sách trạng thái đơn hàng từ API
+  const fetchOrderStatuses = async () => {
+    const { data } = await axios.get("http://localhost:3000/OrderStatus");
     return data;
   };
 
@@ -79,6 +87,7 @@ function OrderList() {
       products?.find((product: any) => product.id === productId)?.name ||
       'Unknown'
     );
+
   };
 
   // Ánh xạ ID -> tên khách hàng từ bảng `users`
@@ -99,6 +108,7 @@ function OrderList() {
       title: 'Khách Hàng',
       dataIndex: 'userId',
       key: 'userId',
+
       render: (userId: string) => getUserName(userId),
     },
     {
